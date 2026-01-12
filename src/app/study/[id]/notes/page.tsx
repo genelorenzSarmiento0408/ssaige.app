@@ -152,7 +152,7 @@ export default function NotesPage() {
                 <ul className="space-y-3">
                   {notes.key_points.map((point, index) => (
                     <li key={index} className="flex gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-semibold">
+                      <span className="shrink-0 w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-semibold">
                         {index + 1}
                       </span>
                       <span className="text-gray-700">{point}</span>

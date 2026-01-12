@@ -50,7 +50,7 @@ export default function FeaturePage() {
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-6 group cursor-pointer my-4">
               <div className="flex items-start justify-between">
                 <div className="flex gap-4 flex-1">
-                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                     <BookOpen className="w-6 h-6 text-purple-600" />
                   </div>
                   <div className="flex-1">
@@ -65,7 +65,7 @@ export default function FeaturePage() {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+                <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform shrink-0 ml-4" />
               </div>
             </div>
           </Link>
@@ -75,7 +75,7 @@ export default function FeaturePage() {
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-6 group cursor-pointer my-4">
               <div className="flex items-start justify-between">
                 <div className="flex gap-4 flex-1">
-                  <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
                     <Zap className="w-6 h-6 text-pink-600" />
                   </div>
                   <div className="flex-1">
@@ -90,7 +90,7 @@ export default function FeaturePage() {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-pink-600 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+                <ArrowRight className="w-5 h-5 text-pink-600 group-hover:translate-x-1 transition-transform shrink-0 ml-4" />
               </div>
             </div>
           </Link>
@@ -100,7 +100,7 @@ export default function FeaturePage() {
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-6 group cursor-pointer my-4">
               <div className="flex items-start justify-between">
                 <div className="flex gap-4 flex-1">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                     <Trophy className="w-6 h-6 text-green-600" />
                   </div>
                   <div className="flex-1">
@@ -115,7 +115,7 @@ export default function FeaturePage() {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-green-600 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+                <ArrowRight className="w-5 h-5 text-green-600 group-hover:translate-x-1 transition-transform shrink-0 ml-4" />
               </div>
             </div>
           </Link>
@@ -125,7 +125,7 @@ export default function FeaturePage() {
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-6 group cursor-pointer my-4">
               <div className="flex items-start justify-between">
                 <div className="flex gap-4 flex-1">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                     <MessageSquare className="w-6 h-6 text-blue-600" />
                   </div>
                   <div className="flex-1">
@@ -140,7 +140,7 @@ export default function FeaturePage() {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+                <ArrowRight className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform shrink-0 ml-4" />
               </div>
             </div>
           </Link>
@@ -150,7 +150,7 @@ export default function FeaturePage() {
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-6 group cursor-pointer my-4">
               <div className="flex items-start justify-between">
                 <div className="flex gap-4 flex-1">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                     <Users className="w-6 h-6 text-orange-600" />
                   </div>
                   <div className="flex-1">
@@ -165,7 +165,7 @@ export default function FeaturePage() {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-orange-600 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+                <ArrowRight className="w-5 h-5 text-orange-600 group-hover:translate-x-1 transition-transform shrink-0 ml-4" />
               </div>
             </div>
           </Link>
@@ -175,7 +175,7 @@ export default function FeaturePage() {
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-6 group cursor-pointer my-4">
               <div className="flex items-start justify-between">
                 <div className="flex gap-4 flex-1">
-                  <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                     <FileUp className="w-6 h-6 text-indigo-600" />
                   </div>
                   <div className="flex-1">
@@ -190,7 +190,7 @@ export default function FeaturePage() {
                     </p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-indigo-600 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+                <ArrowRight className="w-5 h-5 text-indigo-600 group-hover:translate-x-1 transition-transform shrink-0 ml-4" />
               </div>
             </div>
           </Link>

@@ -45,7 +45,7 @@ export default function MultiplayerLearnMore() {
             {/* MCQ Quizizz Mode */}
             <div className="border-2 border-purple-200 rounded-xl p-6">
               <div className="flex items-start gap-4 mb-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                     <Zap className="w-6 h-6 text-purple-600" />
                   </div>
@@ -85,7 +85,7 @@ export default function MultiplayerLearnMore() {
             {/* MCQ Regular Mode */}
             <div className="border-2 border-blue-200 rounded-xl p-6">
               <div className="flex items-start gap-4 mb-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                     <Target className="w-6 h-6 text-blue-600" />
                   </div>
@@ -123,7 +123,7 @@ export default function MultiplayerLearnMore() {
             {/* Identification Mode */}
             <div className="border-2 border-green-200 rounded-xl p-6">
               <div className="flex items-start gap-4 mb-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                     <Gamepad2 className="w-6 h-6 text-green-600" />
                   </div>
