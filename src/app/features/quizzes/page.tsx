@@ -11,7 +11,7 @@ import {
 
 export default function QuizzesLearnMore() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-linear-to-br from-green-50 via-white to-emerald-50">
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Back Button */}
         <Link

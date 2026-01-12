@@ -13,7 +13,7 @@ import {
 
 export default function MultiplayerLearnMore() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50">
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Back Button */}
         <Link
@@ -206,7 +206,7 @@ export default function MultiplayerLearnMore() {
         </div>
 
         {/* How to Play */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-8">
+        <div className="bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-8">
           <h3 className="font-bold text-gray-900 mb-4">How to Play:</h3>
           <ol className="space-y-2 text-gray-700">
             <li className="flex items-start">

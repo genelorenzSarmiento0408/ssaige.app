@@ -30,4 +30,4 @@ We reserve the right to update these Terms and Conditions at any time. Continued
 
 ## 7. Contact Information
 
-For questions or concerns, please contact us at support@ssaige.edu.
+For questions or concerns, please contact us at support@ssaige.app.

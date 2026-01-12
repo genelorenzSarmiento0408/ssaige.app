@@ -11,7 +11,7 @@ import {
 
 export default function TutorLearnMore() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-linear-to-br from-orange-50 via-white to-yellow-50">
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Back Button */}
         <Link
@@ -130,7 +130,7 @@ export default function TutorLearnMore() {
         </div>
 
         {/* Example Questions */}
-        <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-6 mb-8">
+        <div className="bg-linear-to-r from-orange-50 to-yellow-50 rounded-xl p-6 mb-8">
           <h3 className="font-bold text-gray-900 mb-4">Example Questions:</h3>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">

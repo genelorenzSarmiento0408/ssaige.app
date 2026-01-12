@@ -150,7 +150,7 @@ npm run dev
 
 ## Minor Known Issues (Non-critical)
 
-- Tailwind lint suggestions about `bg-gradient-to-*` → `bg-linear-to-*` in some files (cosmetic only).
+- Tailwind lint suggestions about `bg-linear-to-*` → `bg-linear-to-*` in some files (cosmetic only).
 - A handful of places still used eslint-disable comments to avoid infinite loops when intentionally excluding certain hook deps — these are documented in the code.
 
 ---

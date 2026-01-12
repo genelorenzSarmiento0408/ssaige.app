@@ -38,4 +38,4 @@ We may update this Privacy Policy periodically. Continued use of SSAIGE constitu
 
 ## 8. Contact Information
 
-For privacy-related inquiries, please contact us at privacy@ssaige.edu.
+For privacy-related inquiries, please contact us at privacy@ssaige.app.
