@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SSAIGE 🚀
 
-## Getting Started
+An AI-Gamified Education Application that transforms study materials into powerful learning tools using GPT-4, Next.js, and Supabase.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🤖 AI-Powered Study Tools
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Smart Notes Generation**: Automatically generate comprehensive summaries with key points
+- **Flashcard Creation**: AI creates optimized Q&A pairs for effective memorization
+- **Quiz Generation**: Get multiple-choice questions with intelligent distractors
+- **AI Tutor Chat**: 24/7 intelligent tutoring with RAG (Retrieval-Augmented Generation)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📚 Content Import
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Text Input**: Paste any text content directly
+- **URL Fetching**: Import content from web pages
+- **Multiple Formats**: Support for PDF, DOCX, PPTX (coming soon)
+- **Flashcard Import**: Compatible with Anki, Quizlet exports (coming soon)
 
-## Learn More
+### 🎮 Gamified Learning
 
-To learn more about Next.js, take a look at the following resources:
+- **Interactive Flashcards**: Beautiful flip animations and progress tracking
+- **Adaptive Quizzes**: Immediate feedback with detailed explanations
+- **Progress Dashboard**: Track your study materials and performance
+- **Multiplayer Quizzes**: Real-time competitive learning (coming soon)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend**: Next.js 14 (App Router), React 18, TypeScript
+- **Styling**: Tailwind CSS, Lucide React Icons
+- **Authentication**: NextAuth.js (Google & Microsoft OAuth)
+- **Database**: Supabase (PostgreSQL with Row Level Security)
+- **AI**: OpenAI GPT-5-mini
+- **Real-time**: Supabase Realtime (for multiplayer features)
 
-## Deploy on Vercel
+## 🚀 Quick Start
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js 18+ and npm
+- Supabase account ([supabase.com](https://supabase.com))
+- OpenAI API key ([platform.openai.com](https://platform.openai.com))
+- Google OAuth credentials ([console.cloud.google.com](https://console.cloud.google.com))
+- Microsoft OAuth credentials ([portal.azure.com](https://portal.azure.com))
+
+### Installation
+
+1. **Clone and install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+2. **Set up environment variables**
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Edit `.env.local` with your credentials (see `.env.example` for required variables)
+
+3. **Set up Supabase database**
+
+   - Go to your Supabase project → SQL Editor
+   - Run the migration: `supabase/migrations/001_initial_schema.sql`
+   - See SETUP.md for detailed instructions
+
+4. **Start development server**
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000)
+
+## 📖 Documentation
+
+- **SETUP.md**: Complete setup instructions with OAuth configuration
+- **IMPLEMENTATION_SUMMARY.md**: Technical implementation details
+
+## 🎓 Pilot Phase
+
+**All costs are covered by researchers during the study phase!** Users get free access to all premium features including unlimited AI generation, flashcards, quizzes, and AI tutoring.
+
+## ❓ FAQ
+
+### Q: What does SSAIGE mean?
+
+A: SSAIGE means: "Study Simplifier, AI-Gamified Education [application]". It is also combined words of SSI + AI + SIGE
+
+## 📄 License
+
+Proprietary - Research Project  
+© 2025 SSAIGE Research Team
+
+---
+
+**Built with ❤️ for smarter, more engaging learning**
