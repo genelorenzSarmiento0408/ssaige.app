@@ -91,10 +91,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent leading-tight">
-            {user
-              ? `Welcome back, ${firstName || "there"}! 👋`
-              : "Welcome to SSAIGE"}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span className="bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+              {user
+                ? `Welcome back, ${firstName || "there"}!`
+                : "Welcome to SSAIGE"}
+            </span>
+            {user && <span className="ml-3">👋</span>}
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
             Transform your study materials into powerful learning tools with AI

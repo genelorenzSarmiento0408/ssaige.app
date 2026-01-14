@@ -4,6 +4,7 @@ import {
   generateNotes,
   generateFlashcards,
   generateQuizzes,
+  generateIdentificationQuizzes,
 } from "@/lib/ai/openai";
 
 export async function POST(req: NextRequest) {
@@ -56,11 +57,17 @@ export async function POST(req: NextRequest) {
         : materialContent;
 
     // Generate AI content in parallel with reduced counts for faster responses
-    const [notes, flashcards, quizzes] = await Promise.all([
-      generateNotes(truncatedContent),
-      generateFlashcards(truncatedContent, 10), // Reduced from 15
-      generateQuizzes(truncatedContent, 5), // Reduced from 10
-    ]);
+    // Generate both MCQ and identification questions for different game modes
+    const [notes, flashcards, mcqQuizzes, identificationQuizzes] =
+      await Promise.all([
+        generateNotes(truncatedContent),
+        generateFlashcards(truncatedContent, 10), // Reduced from 15
+        generateQuizzes(truncatedContent, 5), // MCQ questions
+        generateIdentificationQuizzes(truncatedContent, 5), // Identification questions
+      ]);
+
+    // Combine both types of quizzes
+    const allQuizzes = [...mcqQuizzes, ...identificationQuizzes];
 
     // Store all data in parallel instead of sequentially
     const insertPromises = [];
@@ -88,13 +95,14 @@ export async function POST(req: NextRequest) {
       insertPromises.push(supabase.from("flashcards").insert(flashcardData));
     }
 
-    // Store quizzes in database
-    if (quizzes.length > 0) {
-      const quizData = quizzes.map((q) => ({
+    // Store quizzes in database (both MCQ and identification types)
+    if (allQuizzes.length > 0) {
+      const quizData = allQuizzes.map((q) => ({
         material_id: materialId,
         question: q.question,
         correct_answer: q.correctAnswer,
         options: q.options,
+        question_type: q.questionType || "mcq",
       }));
 
       insertPromises.push(supabase.from("quizzes").insert(quizData));
@@ -107,7 +115,9 @@ export async function POST(req: NextRequest) {
       success: true,
       notes,
       flashcardsCount: flashcards.length,
-      quizzesCount: quizzes.length,
+      quizzesCount: allQuizzes.length,
+      mcqCount: mcqQuizzes.length,
+      identificationCount: identificationQuizzes.length,
     });
   } catch (error) {
     console.error("Generate error:", error);

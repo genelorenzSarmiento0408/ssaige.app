@@ -20,6 +20,7 @@ export interface GeneratedQuiz {
   correctAnswer: string;
   options: string[];
   explanation?: string;
+  questionType?: "mcq" | "identification";
 }
 
 export async function generateNotes(content: string): Promise<GeneratedNotes> {
@@ -83,7 +84,7 @@ export async function generateQuizzes(
     messages: [
       {
         role: "system",
-        content: `You are an expert at creating educational quizzes. Generate ${count} multiple-choice questions with 4 options each. Make sure distractors are plausible but clearly wrong. Return a JSON object with a "quizzes" array containing objects with: question, correctAnswer, options (array of 4 strings), and explanation fields.`,
+        content: `You are an expert at creating educational quizzes. Generate ${count} multiple-choice questions with 4 options each. Make sure distractors are plausible but clearly wrong. Return a JSON object with a "quizzes" array containing objects with: question, correctAnswer, options (array of 4 strings), explanation, and questionType (set to "mcq") fields.`,
       },
       {
         role: "user",
@@ -99,7 +100,61 @@ export async function generateQuizzes(
     response.choices[0].message.content || '{"quizzes":[]}'
   );
   console.log("AI Response:", response.choices[0].message.content);
-  return result.quizzes || [];
+
+  // Mark all as MCQ type
+  const quizzes = result.quizzes || [];
+  return quizzes.map((quiz: GeneratedQuiz) => ({
+    ...quiz,
+    questionType: "mcq" as const,
+  }));
+}
+
+export async function generateIdentificationQuizzes(
+  content: string,
+  count: number = 5
+): Promise<GeneratedQuiz[]> {
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      {
+        role: "system",
+        content: `You are an expert at creating educational identification/fill-in-the-blank questions. Generate ${count} identification questions where students must type the correct answer. 
+        
+Guidelines:
+- Questions should have ONE clear, specific correct answer (a word, phrase, name, term, or number)
+- Avoid questions with multiple possible answers
+- Make questions straightforward and fact-based
+- The correctAnswer should be the exact answer expected (case-insensitive matching will be used)
+- Set options to an empty array [] since these are not multiple choice
+- Include brief explanations when helpful
+
+Return a JSON object with a "quizzes" array containing objects with: question, correctAnswer, options (empty array), explanation, and questionType (set to "identification") fields.`,
+      },
+      {
+        role: "user",
+        content: `Generate ${count} identification/fill-in questions from this content:\n\n${content}`,
+      },
+    ],
+    response_format: { type: "json_object" },
+    temperature: 0.7,
+    max_tokens: 2500,
+  });
+
+  const result = JSON.parse(
+    response.choices[0].message.content || '{"quizzes":[]}'
+  );
+  console.log(
+    "AI Response (Identification):",
+    response.choices[0].message.content
+  );
+
+  // Mark all as identification type and ensure empty options array
+  const quizzes = result.quizzes || [];
+  return quizzes.map((quiz: GeneratedQuiz) => ({
+    ...quiz,
+    questionType: "identification" as const,
+    options: [], // Identification questions don't have options
+  }));
 }
 
 export async function chatWithTutor(

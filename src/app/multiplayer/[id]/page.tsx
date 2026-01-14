@@ -33,6 +33,9 @@ interface Lobby {
   lobby_code: string;
   max_players: number;
   status: string;
+  game_mode?: "mcq" | "identification";
+  scoring_type?: "regular" | "quizizz";
+  time_limit?: number;
   study_materials: {
     title: string;
   };
@@ -57,10 +60,12 @@ export default function LobbyRoomPage() {
       question: string;
       options: string[];
       correct_answer: string;
+      question_type?: "mcq" | "identification";
     }>
   >([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [textAnswer, setTextAnswer] = useState(""); // For identification questions
   const [gameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
   const [scores, setScores] = useState<Record<string, number>>({});
@@ -190,7 +195,13 @@ export default function LobbyRoomPage() {
 
     if (lobbyData) {
       const lobbyStatus = (lobbyData as { status: string }).status;
-      setLobby(lobbyData as unknown as Lobby);
+      const lobbyWithSettings = lobbyData as unknown as Lobby;
+      setLobby(lobbyWithSettings);
+
+      // Set initial time limit from lobby settings
+      if (lobbyWithSettings.time_limit) {
+        setTimeLeft(lobbyWithSettings.time_limit);
+      }
 
       // Set game started state based on status
       if (lobbyStatus === "active") {
@@ -201,10 +212,16 @@ export default function LobbyRoomPage() {
       }
 
       // Always load quizzes so they're available for results screen
+      // Filter quizzes based on game mode
+      const gameMode = lobbyWithSettings.game_mode || "mcq";
+      const questionType =
+        gameMode === "identification" ? "identification" : "mcq";
+
       const { data: quizData } = await supabase
         .from("quizzes")
         .select("*")
         .eq("material_id", (lobbyData as { material_id: string }).material_id)
+        .eq("question_type", questionType)
         .limit(10);
 
       if (quizData) {
@@ -322,22 +339,42 @@ export default function LobbyRoomPage() {
   const joinAsAnonymous = async () => {
     if (!anonymousNickname || !lobbyId) return;
 
-    // Check if already joined
-    const { data: existing } = await supabase
-      .from("quiz_participants")
-      .select("id")
-      .eq("lobby_id", lobbyId)
-      .eq("nickname", anonymousNickname)
-      .maybeSingle();
+    try {
+      // Check if already joined with this exact nickname
+      const { data: existing, error: fetchError } = await supabase
+        .from("quiz_participants")
+        .select("id")
+        .eq("lobby_id", lobbyId)
+        .eq("nickname", anonymousNickname)
+        .maybeSingle();
 
-    if (!existing) {
-      // @ts-expect-error - Database types not yet updated for nullable user_id
-      await supabase.from("quiz_participants").insert({
-        lobby_id: lobbyId,
-        user_id: null,
-        nickname: anonymousNickname,
-        score: 0,
-      });
+      if (fetchError) {
+        console.error("Error checking existing participant:", fetchError);
+        return;
+      }
+
+      if (!existing) {
+        // @ts-expect-error - Database types not yet updated for nullable user_id
+        const { error: insertError } = await supabase
+          .from("quiz_participants")
+          .insert({
+            lobby_id: lobbyId,
+            user_id: null,
+            nickname: anonymousNickname,
+            score: 0,
+          });
+
+        if (insertError) {
+          // If we get a unique constraint error, it means another call already inserted
+          // This is fine, just ignore it
+          if (insertError.code !== "23505") {
+            // 23505 is PostgreSQL unique violation code
+            console.error("Error joining as anonymous:", insertError);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error in joinAsAnonymous:", error);
     }
   };
 
@@ -346,7 +383,8 @@ export default function LobbyRoomPage() {
       localStorage.setItem(`anonymous_${lobbyId}`, anonymousNickname);
       setIsAnonymous(true);
       setShowNicknamePrompt(false);
-      joinAsAnonymous();
+      // Don't call joinAsAnonymous() here - it will be called by the useEffect
+      // This prevents duplicate inserts
     }
   };
 
@@ -369,7 +407,7 @@ export default function LobbyRoomPage() {
     }
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = async (answer: string) => {
     // Prevent selecting if already answered or no user/anonymous session
     if (selectedAnswer !== null || (!user && !isAnonymous)) return;
 
@@ -382,39 +420,57 @@ export default function LobbyRoomPage() {
       [currentQuestion]: answer,
     }));
 
+    // Check if answer is correct (case-insensitive for identification questions)
+    const isCorrect =
+      currentQuiz.question_type === "identification"
+        ? answer.toLowerCase().trim() ===
+          currentQuiz.correct_answer.toLowerCase().trim()
+        : answer === currentQuiz.correct_answer;
+
     // Track correct/incorrect count
-    if (answer === currentQuiz.correct_answer) {
+    if (isCorrect) {
       setCorrectCount((prev) => prev + 1);
 
-      const points = timeLeft * 10;
+      // Calculate points based on scoring type
+      let points = 0;
+      const scoringType = lobby?.scoring_type || "regular";
+
+      if (scoringType === "quizizz") {
+        // Quizizz style: time-based scoring (remaining time * 10)
+        points = timeLeft * 10;
+      } else {
+        // Regular style: fixed points per correct answer
+        points = 100;
+      }
 
       // Get participant identifier (user_id for authenticated, find by nickname for anonymous)
       const participantId = user?.id || anonymousNickname;
 
+      // Calculate the new total score
+      const newScore = (scores[participantId] || 0) + points;
+
       setScores((prev) => ({
         ...prev,
-        [participantId]: (prev[participantId] || 0) + points,
+        [participantId]: newScore,
       }));
 
-      // Update score in database
+      // Update score in database with the new total - AWAIT this
       if (user) {
-        supabase
+        await supabase
           .from("quiz_participants")
           .update({
-            score: (scores[user.id] || 0) + points,
+            score: newScore,
           })
           .eq("lobby_id", lobbyId)
-          .eq("user_id", user.id)
-          .then();
+          .eq("user_id", user.id);
       } else if (isAnonymous && anonymousNickname) {
-        supabase
+        await supabase
           .from("quiz_participants")
           .update({
-            score: (scores[anonymousNickname] || 0) + points,
+            score: newScore,
           })
           .eq("lobby_id", lobbyId)
-          .eq("nickname", anonymousNickname)
-          .then();
+          .eq("nickname", anonymousNickname);
       }
     } else {
       setIncorrectCount((prev) => prev + 1);
@@ -423,21 +479,25 @@ export default function LobbyRoomPage() {
     setTimeout(() => handleNextQuestion(), 2000);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
     if (currentQuestion < quizzes.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
-      setTimeLeft(15);
+      setTextAnswer(""); // Reset text input for identification questions
+      // Reset timer to lobby's configured time limit (default 15 seconds)
+      setTimeLeft(lobby?.time_limit || 15);
     } else {
-      // Game over - update status and immediately show results locally
-      supabase
+      // Game over - update status and wait for it to complete
+      await supabase
         .from("quiz_lobbies")
         .update({ status: "completed" })
-        .eq("id", lobbyId)
-        .then(() => {
-          // Force reload to show results without refresh
-          loadLobbyData();
-        });
+        .eq("id", lobbyId);
+
+      // Wait a bit for any final database updates to propagate
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Then reload to show results with final scores
+      await loadLobbyData();
     }
   };
 
@@ -513,12 +573,21 @@ export default function LobbyRoomPage() {
       (a, b) => b.score - a.score
     );
 
-    // Get current user's rank
+    // Get current user's rank and score
     const currentUserId = user?.id || anonymousNickname;
+    const currentParticipant = participants.find(
+      (p) => (p.user_id || p.nickname) === currentUserId
+    );
     const userRank =
       sortedParticipants.findIndex(
         (p) => (p.user_id || p.nickname) === currentUserId
       ) + 1;
+
+    // Debug logging
+    console.log("Current User ID:", currentUserId);
+    console.log("Current Participant:", currentParticipant);
+    console.log("All Participants:", participants);
+    console.log("Participant Score:", currentParticipant?.score);
 
     return (
       <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50 p-4">
@@ -570,7 +639,7 @@ export default function LobbyRoomPage() {
                     Total Score
                   </span>
                   <span className="text-2xl font-bold text-orange-600">
-                    {scores[currentUserId] || 0}
+                    {currentParticipant?.score || 0}
                   </span>
                 </div>
               </div>
@@ -632,7 +701,11 @@ export default function LobbyRoomPage() {
             <div className="space-y-6">
               {quizzes.map((quiz, index) => {
                 const userAnswer = userAnswers[index];
-                const isCorrect = userAnswer === quiz.correct_answer;
+                const isCorrect =
+                  quiz.question_type === "identification"
+                    ? userAnswer?.toLowerCase().trim() ===
+                      quiz.correct_answer.toLowerCase().trim()
+                    : userAnswer === quiz.correct_answer;
 
                 return (
                   <div
@@ -666,36 +739,63 @@ export default function LobbyRoomPage() {
                       )}
                     </div>
 
-                    <div className="grid gap-2">
-                      {(quiz.options as string[]).map((option, optIndex) => {
-                        const isCorrectAnswer = option === quiz.correct_answer;
-                        const isUserAnswer = option === userAnswer;
-
-                        return (
+                    {/* Show different UI for identification vs MCQ */}
+                    {quiz.question_type === "identification" ? (
+                      <div className="space-y-2">
+                        {userAnswer && (
                           <div
-                            key={optIndex}
-                            className={`p-3 rounded-lg flex items-center gap-3 ${
-                              isCorrectAnswer
-                                ? "bg-green-100 border-2 border-green-500 font-semibold"
-                                : isUserAnswer
-                                ? "bg-red-100 border-2 border-red-500"
-                                : "bg-white border border-gray-200"
+                            className={`p-3 rounded-lg ${
+                              isCorrect ? "bg-green-100" : "bg-red-100"
                             }`}
                           >
-                            <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center font-bold text-sm border">
-                              {String.fromCharCode(65 + optIndex)}
-                            </span>
-                            <span className="flex-1">{option}</span>
-                            {isCorrectAnswer && (
-                              <Check className="w-5 h-5 text-green-600" />
-                            )}
-                            {isUserAnswer && !isCorrectAnswer && (
-                              <span className="text-red-600 text-xl">✕</span>
-                            )}
+                            <p className="text-sm font-semibold mb-1">
+                              Your Answer:
+                            </p>
+                            <p className="text-lg">{userAnswer}</p>
                           </div>
-                        );
-                      })}
-                    </div>
+                        )}
+                        <div className="p-3 rounded-lg bg-green-100 border-2 border-green-500">
+                          <p className="text-sm font-semibold mb-1">
+                            Correct Answer:
+                          </p>
+                          <p className="text-lg font-bold">
+                            {quiz.correct_answer}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="grid gap-2">
+                        {(quiz.options as string[]).map((option, optIndex) => {
+                          const isCorrectAnswer =
+                            option === quiz.correct_answer;
+                          const isUserAnswer = option === userAnswer;
+
+                          return (
+                            <div
+                              key={optIndex}
+                              className={`p-3 rounded-lg flex items-center gap-3 ${
+                                isCorrectAnswer
+                                  ? "bg-green-100 border-2 border-green-500 font-semibold"
+                                  : isUserAnswer
+                                  ? "bg-red-100 border-2 border-red-500"
+                                  : "bg-white border border-gray-200"
+                              }`}
+                            >
+                              <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center font-bold text-sm border">
+                                {String.fromCharCode(65 + optIndex)}
+                              </span>
+                              <span className="flex-1">{option}</span>
+                              {isCorrectAnswer && (
+                                <Check className="w-5 h-5 text-green-600" />
+                              )}
+                              {isUserAnswer && !isCorrectAnswer && (
+                                <span className="text-red-600 text-xl">✕</span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -766,44 +866,113 @@ export default function LobbyRoomPage() {
           <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
             <h3 className="text-2xl font-bold mb-6">{currentQuiz.question}</h3>
 
-            <div className="grid gap-4">
-              {(currentQuiz.options as string[]).map((option, index) => {
-                const isCorrect = option === currentQuiz.correct_answer;
-                const isSelected = option === selectedAnswer;
-                const showResult = selectedAnswer !== null;
-
-                return (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswerSelect(option)}
-                    disabled={selectedAnswer !== null}
-                    className={`p-6 rounded-xl font-semibold text-left transition-all ${
-                      showResult
-                        ? isCorrect
-                          ? "bg-green-100 border-2 border-green-500 text-green-900"
-                          : isSelected
-                          ? "bg-red-100 border-2 border-red-500 text-red-900"
-                          : "bg-gray-100 text-gray-600"
-                        : "bg-gray-50 hover:bg-purple-50 hover:border-purple-300 border-2 border-gray-200"
-                    } ${
+            {/* Check if it's an identification question or MCQ */}
+            {currentQuiz.question_type === "identification" ? (
+              // Identification/Fill-in-the-blank input
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  value={textAnswer}
+                  onChange={(e) => setTextAnswer(e.target.value)}
+                  disabled={selectedAnswer !== null}
+                  placeholder="Type your answer here..."
+                  className="w-full p-4 rounded-xl border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none text-lg disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === "Enter" &&
+                      textAnswer.trim() &&
                       selectedAnswer === null
-                        ? "cursor-pointer"
-                        : "cursor-not-allowed"
+                    ) {
+                      handleAnswerSelect(textAnswer.trim());
+                    }
+                  }}
+                />
+                <button
+                  onClick={() => handleAnswerSelect(textAnswer.trim())}
+                  disabled={!textAnswer.trim() || selectedAnswer !== null}
+                  className="w-full py-4 rounded-xl font-bold text-white bg-purple-600 hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                >
+                  Submit Answer
+                </button>
+
+                {/* Show result after answer */}
+                {selectedAnswer !== null && (
+                  <div
+                    className={`p-4 rounded-xl text-center font-semibold ${
+                      selectedAnswer.toLowerCase() ===
+                      currentQuiz.correct_answer.toLowerCase()
+                        ? "bg-green-100 text-green-900 border-2 border-green-500"
+                        : "bg-red-100 text-red-900 border-2 border-red-500"
                     }`}
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold">
-                        {String.fromCharCode(65 + index)}
-                      </span>
-                      <span>{option}</span>
-                      {showResult && isCorrect && (
-                        <Check className="w-6 h-6 ml-auto text-green-600" />
-                      )}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                    {selectedAnswer.toLowerCase() ===
+                    currentQuiz.correct_answer.toLowerCase() ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <Check className="w-6 h-6" />
+                        Correct! The answer is: {currentQuiz.correct_answer}
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <span className="text-2xl">✕</span>
+                          Incorrect
+                        </div>
+                        <p>
+                          Your answer:{" "}
+                          <span className="font-bold">{selectedAnswer}</span>
+                        </p>
+                        <p>
+                          Correct answer:{" "}
+                          <span className="font-bold">
+                            {currentQuiz.correct_answer}
+                          </span>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Multiple choice options
+              <div className="grid gap-4">
+                {(currentQuiz.options as string[]).map((option, index) => {
+                  const isCorrect = option === currentQuiz.correct_answer;
+                  const isSelected = option === selectedAnswer;
+                  const showResult = selectedAnswer !== null;
+
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => handleAnswerSelect(option)}
+                      disabled={selectedAnswer !== null}
+                      className={`p-6 rounded-xl font-semibold text-left transition-all ${
+                        showResult
+                          ? isCorrect
+                            ? "bg-green-100 border-2 border-green-500 text-green-900"
+                            : isSelected
+                            ? "bg-red-100 border-2 border-red-500 text-red-900"
+                            : "bg-gray-100 text-gray-600"
+                          : "bg-gray-50 hover:bg-purple-50 hover:border-purple-300 border-2 border-gray-200"
+                      } ${
+                        selectedAnswer === null
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed"
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold">
+                          {String.fromCharCode(65 + index)}
+                        </span>
+                        <span>{option}</span>
+                        {showResult && isCorrect && (
+                          <Check className="w-6 h-6 ml-auto text-green-600" />
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Participants */}
@@ -905,7 +1074,7 @@ export default function LobbyRoomPage() {
           </div>
 
           {/* Lobby Code */}
-          <div className="bg-linear-to-r from-purple-100 to-pink-100 rounded-2xl p-6 mb-8">
+          <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 mb-8">
             <p className="text-sm text-purple-900 font-semibold mb-2 text-center">
               Lobby Code
             </p>
@@ -927,6 +1096,38 @@ export default function LobbyRoomPage() {
             <p className="text-xs text-purple-700 text-center mt-2">
               Share this code with your friends!
             </p>
+          </div>
+
+          {/* Game Settings */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-8">
+            <h3 className="text-sm font-semibold text-indigo-900 mb-4 text-center">
+              Game Settings
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white rounded-lg p-4 text-center">
+                <p className="text-xs text-gray-600 mb-1">Mode</p>
+                <p className="text-sm font-bold text-indigo-900 capitalize">
+                  {lobby.game_mode || "MCQ"}
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 text-center">
+                <p className="text-xs text-gray-600 mb-1">Scoring</p>
+                <p className="text-sm font-bold text-indigo-900 capitalize">
+                  {lobby.scoring_type === "quizizz" ? "Time-Based" : "Regular"}
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 text-center">
+                <p className="text-xs text-gray-600 mb-1">Time Limit</p>
+                <p className="text-sm font-bold text-indigo-900">
+                  {lobby.time_limit || 15}s
+                </p>
+              </div>
+            </div>
+            {lobby.scoring_type === "quizizz" && (
+              <p className="text-xs text-indigo-700 text-center mt-3">
+                💡 Answer faster to earn more points!
+              </p>
+            )}
           </div>
 
           {/* Participants */}

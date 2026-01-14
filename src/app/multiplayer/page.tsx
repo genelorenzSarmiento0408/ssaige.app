@@ -3,15 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import {
-  Users,
-  Plus,
-  Play,
-  Sparkles,
-  Loader2,
-  Trophy,
-  Clock,
-} from "lucide-react";
+import { Users, Plus, Play, Trophy, Clock } from "lucide-react";
 import Link from "next/link";
 
 interface Lobby {
@@ -36,7 +28,6 @@ export default function MultiplayerPage() {
   const router = useRouter();
   const [user, setUser] = useState<{ id: string; email: string } | null>(null);
   const [lobbies, setLobbies] = useState<Lobby[]>([]);
-  const [loading, setLoading] = useState(false); // Changed to false initially
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [materials, setMaterials] = useState<{ id: string; title: string }[]>(
     []
@@ -237,31 +228,12 @@ export default function MultiplayerPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 to-pink-50">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-orange-50">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm">
+      <header className="">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-linear-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <span className="font-bold text-xl bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                SSAIGE
-              </span>
-            </Link>
             {user && (
               <Link
                 href="/dashboard"
@@ -320,11 +292,7 @@ export default function MultiplayerPage() {
         {/* Lobbies List */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-6">Available Lobbies</h2>
-          {loading ? (
-            <div className="flex justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-purple-600" />
-            </div>
-          ) : lobbies.length === 0 ? (
+          {lobbies.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
               <Users className="w-16 h-16 mx-auto text-gray-300 mb-4" />
               <p className="text-gray-600">

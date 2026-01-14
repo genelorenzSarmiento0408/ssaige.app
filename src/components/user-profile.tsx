@@ -7,7 +7,11 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function UserProfile() {
-  const [user, setUser] = useState<{ email: string; id: string } | null>(null);
+  const [user, setUser] = useState<{
+    email: string;
+    id: string;
+    name: string;
+  } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -19,7 +23,23 @@ export default function UserProfile() {
         data: { session },
       } = await supabase.auth.getSession();
       if (session?.user) {
-        setUser({ email: session.user.email!, id: session.user.id });
+        // Find name from supabase profiles table using the user ID
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("name")
+          .eq("id", session.user.id)
+          .single();
+
+        setUser({
+          email: session.user.email!,
+          id: session.user.id,
+          name:
+            profile?.name ||
+            session.user.user_metadata.full_name ||
+            session.user.user_metadata.name ||
+            session.user.email?.split("@")[0] ||
+            "User",
+        });
       }
     };
     getUser();
@@ -27,9 +47,25 @@ export default function UserProfile() {
     // Subscribe to auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) {
-        setUser({ email: session.user.email!, id: session.user.id });
+        // Find name from supabase profiles table using the user ID
+        // const { data: profile } = await supabase
+        //   .from("profiles")
+        //   .select("name")
+        //   .eq("id", session.user.id)
+        //   .single();
+
+        setUser({
+          email: session.user.email!,
+          id: session.user.id,
+          name:
+            // profile?.name ||
+            session.user.user_metadata.full_name ||
+            session.user.user_metadata.name ||
+            session.user.email?.split("@")[0] ||
+            "Student Account",
+        });
       } else {
         setUser(null);
       }
@@ -79,7 +115,7 @@ export default function UserProfile() {
           </span>
         </div>
         <div className="hidden md:block text-left">
-          <p className="text-sm font-semibold text-gray-900">User</p>
+          <p className="text-sm font-semibold text-gray-900">{user.name}</p>
           <p className="text-xs text-gray-500">{user.email}</p>
         </div>
       </button>
@@ -87,7 +123,7 @@ export default function UserProfile() {
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
           <div className="px-4 py-3 border-b border-gray-100">
-            <p className="text-sm font-semibold text-gray-900">Account</p>
+            <p className="text-sm font-semibold text-gray-900">{user.name}</p>
             <p className="text-xs text-gray-500 truncate">{user.email}</p>
           </div>
 

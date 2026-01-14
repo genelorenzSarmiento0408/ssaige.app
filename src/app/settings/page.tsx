@@ -204,7 +204,9 @@ export default function SettingsPage() {
 
         {/* Additional Settings Sections (Future) */}
         <div className="mt-6 bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Account</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+            User Account
+          </h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between py-3 border-b border-gray-200">
               <div>
