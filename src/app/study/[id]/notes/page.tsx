@@ -99,8 +99,11 @@ export default function NotesPage() {
                 <span>Back to Dashboard</span>
               </button>
             </div>
-            <h1 className="text-2xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              📝 Study Notes
+            <h1 className="text-2xl font-bold ">
+              <span>📝</span>
+              <span className="bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Study Notes
+              </span>
             </h1>
           </div>
         </div>
