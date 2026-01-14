@@ -354,12 +354,11 @@ export default function LobbyRoomPage() {
       }
 
       if (!existing) {
-        // @ts-expect-error - Database types not yet updated for nullable user_id
         const { error: insertError } = await supabase
           .from("quiz_participants")
           .insert({
             lobby_id: lobbyId,
-            user_id: null,
+            user_id: null as unknown as string, // Allow null for anonymous users
             nickname: anonymousNickname,
             score: 0,
           });
