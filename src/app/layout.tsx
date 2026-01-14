@@ -15,8 +15,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SSAIGE - AI-Powered Learning",
-  description: "Transform your study materials into powerful learning tools with AI. Generate flashcards, quizzes, notes, and get AI tutoring assistance.",
-  keywords: ["AI learning", "study tools", "flashcards", "quizzes", "education", "AI tutor"],
+  description:
+    "Transform your study materials into powerful learning tools with AI. Generate flashcards, quizzes, notes, and get AI tutoring assistance.",
+  keywords: [
+    "AI learning",
+    "study tools",
+    "flashcards",
+    "quizzes",
+    "education",
+    "AI tutor",
+  ],
   authors: [{ name: "SSAIGE Team" }],
   metadataBase: new URL("https://www.ssaige.app"),
   openGraph: {
@@ -24,7 +32,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.ssaige.app",
     title: "SSAIGE - AI-Powered Learning",
-    description: "Transform your study materials into powerful learning tools with AI. Generate flashcards, quizzes, notes, and get AI tutoring assistance.",
+    description:
+      "Transform your study materials into powerful learning tools with AI. Generate flashcards, quizzes, notes, and get AI tutoring assistance.",
     siteName: "SSAIGE",
     images: [
       {
@@ -38,7 +47,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SSAIGE - AI-Powered Learning",
-    description: "Transform your study materials into powerful learning tools with AI. Generate flashcards, quizzes, notes, and get AI tutoring assistance.",
+    description:
+      "Transform your study materials into powerful learning tools with AI. Generate flashcards, quizzes, notes, and get AI tutoring assistance.",
     images: ["/app_preview.png"],
     creator: "@ssaige_app",
   },
