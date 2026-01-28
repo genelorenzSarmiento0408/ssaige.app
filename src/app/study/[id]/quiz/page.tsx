@@ -22,6 +22,7 @@ export default function QuizPage() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [textAnswer, setTextAnswer] = useState(""); // For identification questions
   const [showResult, setShowResult] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false); // Store the result of answer check
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -61,23 +62,22 @@ export default function QuizPage() {
     const answer = answerToCheck || selectedAnswer;
     if (!answer) return;
 
-    // Set the selected answer if it was passed in
-    if (answerToCheck) {
-      setSelectedAnswer(answerToCheck);
-    }
-
-    setShowResult(true);
+    const currentQuiz = quizzes[currentIndex];
     
     // Check answer with case-insensitive comparison for identification questions
     // MCQ questions use exact match as options are pre-defined
-    const currentQuiz = quizzes[currentIndex];
-    const isCorrect =
+    const correct =
       currentQuiz.question_type === "identification"
         ? answer.toLowerCase().trim() ===
           currentQuiz.correct_answer.toLowerCase().trim()
         : answer === currentQuiz.correct_answer;
     
-    if (isCorrect) {
+    // Update state with results
+    setSelectedAnswer(answer);
+    setIsCorrect(correct);
+    setShowResult(true);
+    
+    if (correct) {
       setScore(score + 1);
     }
   };
@@ -88,6 +88,7 @@ export default function QuizPage() {
       setSelectedAnswer(null);
       setTextAnswer(""); // Reset text answer for identification questions
       setShowResult(false);
+      setIsCorrect(false); // Reset correctness state
     } else {
       setCompleted(true);
     }
@@ -98,6 +99,7 @@ export default function QuizPage() {
     setSelectedAnswer(null);
     setTextAnswer(""); // Reset text answer
     setShowResult(false);
+    setIsCorrect(false); // Reset correctness state
     setScore(0);
     setCompleted(false);
   };
@@ -224,14 +226,12 @@ export default function QuizPage() {
               {showResult && selectedAnswer && (
                 <div
                   className={`p-4 rounded-xl text-center font-semibold ${
-                    selectedAnswer.toLowerCase().trim() ===
-                    currentQuiz.correct_answer.toLowerCase().trim()
+                    isCorrect
                       ? "bg-green-100 text-green-800"
                       : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {selectedAnswer.toLowerCase().trim() ===
-                  currentQuiz.correct_answer.toLowerCase().trim() ? (
+                  {isCorrect ? (
                     <div className="flex items-center justify-center gap-2">
                       <CheckCircle className="w-5 h-5" />
                       <span>Correct!</span>
