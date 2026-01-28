@@ -57,18 +57,25 @@ export default function QuizPage() {
     setSelectedAnswer(answer);
   };
 
-  const checkAnswer = () => {
-    if (!selectedAnswer) return;
+  const checkAnswer = (answerToCheck?: string) => {
+    const answer = answerToCheck || selectedAnswer;
+    if (!answer) return;
+
+    // Set the selected answer if it was passed in
+    if (answerToCheck) {
+      setSelectedAnswer(answerToCheck);
+    }
 
     setShowResult(true);
     
     // Check answer with case-insensitive comparison for identification questions
+    // MCQ questions use exact match as options are pre-defined
     const currentQuiz = quizzes[currentIndex];
     const isCorrect =
       currentQuiz.question_type === "identification"
-        ? selectedAnswer.toLowerCase().trim() ===
+        ? answer.toLowerCase().trim() ===
           currentQuiz.correct_answer.toLowerCase().trim()
-        : selectedAnswer === currentQuiz.correct_answer;
+        : answer === currentQuiz.correct_answer;
     
     if (isCorrect) {
       setScore(score + 1);
@@ -209,21 +216,21 @@ export default function QuizPage() {
                     !showResult
                   ) {
                     e.preventDefault();
-                    setSelectedAnswer(textAnswer.trim());
+                    checkAnswer(textAnswer.trim());
                   }
                 }}
               />
               
-              {showResult && (
+              {showResult && selectedAnswer && (
                 <div
                   className={`p-4 rounded-xl text-center font-semibold ${
-                    textAnswer.toLowerCase().trim() ===
+                    selectedAnswer.toLowerCase().trim() ===
                     currentQuiz.correct_answer.toLowerCase().trim()
                       ? "bg-green-100 text-green-800"
                       : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {textAnswer.toLowerCase().trim() ===
+                  {selectedAnswer.toLowerCase().trim() ===
                   currentQuiz.correct_answer.toLowerCase().trim() ? (
                     <div className="flex items-center justify-center gap-2">
                       <CheckCircle className="w-5 h-5" />
@@ -298,11 +305,12 @@ export default function QuizPage() {
           {!showResult ? (
             <button
               onClick={() => {
-                // For identification questions, set the text answer as selected answer
+                // For identification questions, pass the text answer to checkAnswer
                 if (currentQuiz.question_type === "identification") {
-                  setSelectedAnswer(textAnswer.trim());
+                  checkAnswer(textAnswer.trim());
+                } else {
+                  checkAnswer();
                 }
-                checkAnswer();
               }}
               disabled={
                 currentQuiz.question_type === "identification"
