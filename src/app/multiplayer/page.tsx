@@ -229,7 +229,7 @@ export default function MultiplayerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-teal-50 to-lime-50">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-orange-50">
       {/* Header */}
       <header className="">
         <div className="container mx-auto px-4 py-4">
@@ -237,7 +237,7 @@ export default function MultiplayerPage() {
             {user && (
               <Link
                 href="/dashboard"
-                className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                className="text-purple-600 hover:text-purple-700 font-semibold"
               >
                 ← Back to Dashboard
               </Link>
@@ -249,10 +249,10 @@ export default function MultiplayerPage() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-emerald-600 to-teal-600 rounded-2xl mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-purple-600 to-pink-600 rounded-2xl mb-4">
             <Users className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold mb-4 bg-linear-to-r from-emerald-600 via-teal-600 to-lime-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold mb-4 bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
             Multiplayer Quiz Lobbies
           </h1>
           <p className="text-gray-600 text-lg">
@@ -265,7 +265,7 @@ export default function MultiplayerPage() {
           {user && (
             <button
               onClick={() => setShowCreateModal(true)}
-              className="flex items-center justify-center gap-3 bg-linear-to-r from-emerald-600 to-teal-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg transition-all"
+              className="flex items-center justify-center gap-3 bg-linear-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg transition-all"
             >
               <Plus className="w-5 h-5" />
               Create New Lobby
@@ -277,7 +277,7 @@ export default function MultiplayerPage() {
               value={lobbyCode}
               onChange={(e) => setLobbyCode(e.target.value)}
               placeholder="Enter lobby code"
-              className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none uppercase"
+              className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none uppercase"
               maxLength={6}
             />
             <button
@@ -309,7 +309,7 @@ export default function MultiplayerPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <Trophy className="w-5 h-5 text-emerald-600" />
+                        <Trophy className="w-5 h-5 text-purple-600" />
                         <h3 className="text-xl font-bold">
                           {(
                             lobby.study_materials as unknown as {
@@ -328,14 +328,14 @@ export default function MultiplayerPage() {
                           <Clock className="w-4 h-4" />
                           {new Date(lobby.created_at).toLocaleTimeString()}
                         </span>
-                        <span className="font-mono font-semibold text-emerald-600">
+                        <span className="font-mono font-semibold text-purple-600">
                           {lobby.lobby_code}
                         </span>
                       </div>
                     </div>
                     <button
                       onClick={() => joinLobby(lobby.id)}
-                      className="flex items-center gap-2 px-6 py-3 bg-linear-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                      className="flex items-center gap-2 px-6 py-3 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
                     >
                       <Play className="w-5 h-5" />
                       Join Lobby
@@ -361,7 +361,7 @@ export default function MultiplayerPage() {
                 <select
                   value={selectedMaterial}
                   onChange={(e) => setSelectedMaterial(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none"
                 >
                   <option value="">Choose material...</option>
                   {materials.map((material) => (
@@ -382,8 +382,8 @@ export default function MultiplayerPage() {
                     onClick={() => setGameMode("mcq")}
                     className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                       gameMode === "mcq"
-                        ? "border-emerald-600 bg-emerald-50"
-                        : "border-gray-200 hover:border-emerald-300"
+                        ? "border-purple-600 bg-purple-50"
+                        : "border-gray-200 hover:border-purple-300"
                     }`}
                   >
                     <div className="font-semibold text-gray-900 mb-1">
@@ -398,8 +398,8 @@ export default function MultiplayerPage() {
                     onClick={() => setGameMode("identification")}
                     className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                       gameMode === "identification"
-                        ? "border-emerald-600 bg-emerald-50"
-                        : "border-gray-200 hover:border-emerald-300"
+                        ? "border-purple-600 bg-purple-50"
+                        : "border-gray-200 hover:border-purple-300"
                     }`}
                   >
                     <div className="font-semibold text-gray-900 mb-1">
@@ -423,8 +423,8 @@ export default function MultiplayerPage() {
                       onClick={() => setScoringType("quizizz")}
                       className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                         scoringType === "quizizz"
-                          ? "border-emerald-600 bg-emerald-50"
-                          : "border-gray-200 hover:border-emerald-300"
+                          ? "border-purple-600 bg-purple-50"
+                          : "border-gray-200 hover:border-purple-300"
                       }`}
                     >
                       <div className="font-semibold text-gray-900 mb-1">
@@ -439,8 +439,8 @@ export default function MultiplayerPage() {
                       onClick={() => setScoringType("regular")}
                       className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                         scoringType === "regular"
-                          ? "border-emerald-600 bg-emerald-50"
-                          : "border-gray-200 hover:border-emerald-300"
+                          ? "border-purple-600 bg-purple-50"
+                          : "border-gray-200 hover:border-purple-300"
                       }`}
                     >
                       <div className="font-semibold text-gray-900 mb-1">
@@ -464,7 +464,7 @@ export default function MultiplayerPage() {
                   max="60"
                   value={timeLimit}
                   onChange={(e) => setTimeLimit(parseInt(e.target.value))}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none"
                 />
               </div>
 
@@ -478,7 +478,7 @@ export default function MultiplayerPage() {
                   max="10"
                   value={maxPlayers}
                   onChange={(e) => setMaxPlayers(parseInt(e.target.value))}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none"
                 />
               </div>
               <div className="flex gap-3 mt-6">
@@ -491,7 +491,7 @@ export default function MultiplayerPage() {
                 <button
                   onClick={createLobby}
                   disabled={!selectedMaterial}
-                  className="flex-1 px-6 py-3 bg-linear-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-6 py-3 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Create
                 </button>
@@ -503,3 +503,4 @@ export default function MultiplayerPage() {
     </div>
   );
 }
+

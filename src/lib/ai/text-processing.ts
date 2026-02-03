@@ -58,3 +58,4 @@ export function extractKeyTopics(text: string): string[] {
     .slice(0, 10)
     .map(([word]) => word);
 }
+

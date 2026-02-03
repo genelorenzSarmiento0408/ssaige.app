@@ -61,8 +61,8 @@ export default function ImportLearnMore() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-lg">
-              <FileText className="w-6 h-6 text-emerald-600" />
+            <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-lg">
+              <FileText className="w-6 h-6 text-purple-600" />
               <div>
                 <h4 className="font-semibold text-gray-900">PowerPoint</h4>
                 <p className="text-sm text-gray-600">.pptx presentations</p>
@@ -89,8 +89,8 @@ export default function ImportLearnMore() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-teal-50 rounded-lg">
-              <FileText className="w-6 h-6 text-teal-600" />
+            <div className="flex items-center gap-3 p-4 bg-pink-50 rounded-lg">
+              <FileText className="w-6 h-6 text-pink-600" />
               <div>
                 <h4 className="font-semibold text-gray-900">Plain Text</h4>
                 <p className="text-sm text-gray-600">Copy & paste anything</p>
@@ -219,3 +219,4 @@ export default function ImportLearnMore() {
     </div>
   );
 }
+

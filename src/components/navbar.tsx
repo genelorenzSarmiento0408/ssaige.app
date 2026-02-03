@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { Sparkles, Menu, X } from "lucide-react";
 import UserProfile from "@/components/user-profile";
+import ThemeSwitcher from "@/components/theme-switcher";
 import { useState } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { colors } = useTheme();
 
   const navLinks = [
     { href: "/dashboard", label: "Dashboard" },
@@ -22,10 +25,14 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-linear-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center">
+              <div
+                className={`w-10 h-10 bg-linear-to-br from-${colors.primary}-600 to-${colors.secondary}-600 rounded-xl flex items-center justify-center`}
+              >
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <span className="font-bold text-lg text-emerald-700">SSAIGE</span>
+              <span className={`font-bold text-lg text-${colors.primary}-700`}>
+                SSAIGE
+              </span>
             </Link>
           </div>
 
@@ -35,22 +42,23 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-700 hover:text-emerald-600 transition-colors"
+                className={`text-gray-700 hover:text-${colors.primary}-600 transition-colors`}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Desktop User Profile */}
-          <div className="hidden md:block">
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeSwitcher />
             <UserProfile />
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-gray-700 hover:text-emerald-600 transition-colors"
+            className={`md:hidden p-2 text-gray-700 hover:text-${colors.primary}-600 transition-colors`}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -68,13 +76,14 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="block text-gray-700 hover:text-emerald-600 py-2 transition-colors"
+                className={`block text-gray-700 hover:text-${colors.primary}-600 py-2 transition-colors`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 border-t">
+            <div className="pt-3 border-t flex items-center gap-3">
+              <ThemeSwitcher />
               <UserProfile />
             </div>
           </div>

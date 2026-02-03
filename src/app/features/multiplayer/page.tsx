@@ -43,11 +43,11 @@ export default function MultiplayerLearnMore() {
 
           <div className="space-y-6">
             {/* MCQ Quizizz Mode */}
-            <div className="border-2 border-emerald-200 rounded-xl p-6">
+            <div className="border-2 border-purple-200 rounded-xl p-6">
               <div className="flex items-start gap-4 mb-4">
                 <div className="shrink-0">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-emerald-600" />
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <Zap className="w-6 h-6 text-purple-600" />
                   </div>
                 </div>
                 <div className="flex-1">
@@ -58,22 +58,22 @@ export default function MultiplayerLearnMore() {
                     Fast-paced multiple-choice questions with speed-based
                     scoring
                   </p>
-                  <div className="bg-emerald-50 rounded-lg p-4">
+                  <div className="bg-purple-50 rounded-lg p-4">
                     <h4 className="font-semibold text-gray-900 mb-2">
                       Scoring System:
                     </h4>
                     <ul className="space-y-1 text-sm text-gray-700">
                       <li className="flex items-center">
-                        <Trophy className="w-4 h-4 text-emerald-600 mr-2" />
+                        <Trophy className="w-4 h-4 text-purple-600 mr-2" />
                         Base points for correct answers
                       </li>
                       <li className="flex items-center">
-                        <Clock className="w-4 h-4 text-emerald-600 mr-2" />
+                        <Clock className="w-4 h-4 text-purple-600 mr-2" />
                         Bonus points for fast answers (more time left = more
                         points)
                       </li>
                       <li className="flex items-center">
-                        <Zap className="w-4 h-4 text-emerald-600 mr-2" />
+                        <Zap className="w-4 h-4 text-purple-600 mr-2" />
                         Answer streak bonuses (consecutive correct answers)
                       </li>
                     </ul>
@@ -246,3 +246,4 @@ export default function MultiplayerLearnMore() {
     </div>
   );
 }
+

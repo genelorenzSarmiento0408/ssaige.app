@@ -14,3 +14,4 @@ export function cosineSimilarity(a: number[], b: number[]) {
   if (magA === 0 || magB === 0) return 0;
   return dot(a, b) / (magA * magB);
 }
+

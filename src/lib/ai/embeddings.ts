@@ -17,3 +17,4 @@ export async function embedText(text: string): Promise<number[]> {
   const [v] = await embedTexts([text]);
   return v;
 }
+
