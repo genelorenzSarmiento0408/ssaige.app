@@ -3,15 +3,15 @@ import Link from "next/link";
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-linear-to-b from-emerald-50 via-teal-50 to-lime-50">
       {/* Header */}
       {/* <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-linear-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-linear-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <span className="font-bold text-xl bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="font-bold text-xl bg-linear-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               SSAIGE
             </span>
           </Link>
@@ -20,7 +20,7 @@ export default function PricingPage() {
 
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-emerald-600 via-teal-600 to-lime-500 bg-clip-text text-transparent">
           Pricing
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
@@ -94,9 +94,9 @@ export default function PricingPage() {
           </div>
 
           {/* Pro Tier (Currently Free) */}
-          <div className="bg-linear-to-br from-purple-600 to-pink-600 rounded-3xl shadow-xl p-8 border-4 border-purple-400 transform scale-105 relative">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-              <span className="bg-yellow-400 text-purple-900 px-4 py-1 rounded-full text-sm font-bold">
+          <div className="bg-linear-to-br from-emerald-600 to-teal-600 rounded-3xl shadow-xl p-8 border-4 border-emerald-400 transform scale-105 relative">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <span className="bg-yellow-400 text-emerald-900 px-4 py-1 rounded-full text-sm font-bold">
                 FREE NOW! 🎉
               </span>
             </div>
@@ -114,7 +114,7 @@ export default function PricingPage() {
                 FREE during pilot
               </div>
             </div>
-            <p className="text-purple-100 mb-6">
+            <p className="text-emerald-100 mb-6">
               Most popular for serious learners
             </p>
 
@@ -145,7 +145,7 @@ export default function PricingPage() {
 
             <Link
               href="/auth/signin"
-              className="block w-full py-3 px-6 bg-white text-purple-600 rounded-xl font-semibold hover:bg-yellow-300 hover:text-purple-700 transition-colors text-center"
+              className="block w-full py-3 px-6 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-yellow-300 hover:text-emerald-700 transition-colors text-center"
             >
               Get Started Free
             </Link>
@@ -154,7 +154,7 @@ export default function PricingPage() {
           {/* Enterprise Tier (Future) */}
           <div className="bg-white rounded-3xl shadow-lg p-8 border-2 border-gray-200 hover:shadow-xl transition-shadow">
             <div className="flex items-center gap-3 mb-4">
-              <Sparkles className="w-8 h-8 text-purple-600" />
+              <Sparkles className="w-8 h-8 text-emerald-600" />
               <h3 className="text-2xl font-bold text-gray-900">Enterprise</h3>
             </div>
             <div className="mb-6">
@@ -198,7 +198,7 @@ export default function PricingPage() {
 
         {/* FAQ Section */}
         <div className="max-w-3xl mx-auto mt-20">
-          <h2 className="text-3xl font-bold text-center mb-10 bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold text-center mb-10 bg-linear-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
             Frequently Asked Questions
           </h2>
 

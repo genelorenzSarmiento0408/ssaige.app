@@ -13,13 +13,13 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-teal-50 to-lime-50">
       {/* Header */}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-lime-500 bg-clip-text text-transparent">
             Contact Us
           </h1>
           <p className="text-gray-600 text-lg">Get in touch with our team</p>
@@ -28,8 +28,8 @@ export default function ContactPage() {
         {/* Support Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
-              <Mail className="w-6 h-6 text-purple-600" />
+            <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center">
+              <Mail className="w-6 h-6 text-emerald-600" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -43,7 +43,7 @@ export default function ContactPage() {
             </p>
             <a
               href="mailto:support@ssaige.app"
-              className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold text-lg"
+              className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-lg"
             >
               <Mail className="w-5 h-5" />
               support@ssaige.app
@@ -54,8 +54,8 @@ export default function ContactPage() {
         {/* Research Leader Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-pink-100 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-orange-600" />
+            <div className="w-12 h-12 bg-gradient-to-br from-lime-100 to-teal-100 rounded-xl flex items-center justify-center">
+              <Users className="w-6 h-6 text-lime-600" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -87,8 +87,8 @@ export default function ContactPage() {
         {/* Research Team Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-pink-600" />
+            <div className="w-12 h-12 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-xl flex items-center justify-center">
+              <Users className="w-6 h-6 text-teal-600" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -101,10 +101,10 @@ export default function ContactPage() {
               {researchMembers.map((member, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl"
+                  className="p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl"
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold">
                       {/* {index + 1} */}
                     </div>
                     <div>
@@ -141,13 +141,13 @@ export default function ContactPage() {
             <div className="flex gap-6">
               <Link
                 href="/privacy"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className="text-sm text-gray-600 hover:text-emerald-600"
               >
-                Privacy Policy
+                Privacy
               </Link>
               <Link
                 href="/terms"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className="text-sm text-gray-600 hover:text-emerald-600"
               >
                 Terms of Service
               </Link>

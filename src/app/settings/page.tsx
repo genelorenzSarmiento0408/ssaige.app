@@ -92,14 +92,14 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-600" />
+      <div className="min-h-screen bg-linear-to-br from-emerald-50 to-blue-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-emerald-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -119,7 +119,7 @@ export default function SettingsPage() {
           {/* Profile Section */}
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-              <User className="w-6 h-6 text-purple-600" />
+              <User className="w-6 h-6 text-emerald-600" />
               Profile Information
             </h2>
 
@@ -137,7 +137,7 @@ export default function SettingsPage() {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                   placeholder="Enter your name"
                 />
               </div>
@@ -185,7 +185,7 @@ export default function SettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-purple-400 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:bg-emerald-400 disabled:cursor-not-allowed transition-colors"
             >
               {saving ? (
                 <>

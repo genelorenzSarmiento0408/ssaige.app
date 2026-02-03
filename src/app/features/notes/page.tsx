@@ -5,12 +5,12 @@ import { BookOpen, Sparkles, FileText, Clock, ArrowLeft } from "lucide-react";
 
 export default function NotesLearnMore() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-teal-50">
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Back Button */}
         <Link
           href="/"
-          className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-8"
+          className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-8"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -18,8 +18,8 @@ export default function NotesLearnMore() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-100 rounded-full mb-6">
-            <BookOpen className="w-10 h-10 text-purple-600" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-full mb-6">
+            <BookOpen className="w-10 h-10 text-emerald-600" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             AI-Generated Notes
@@ -36,7 +36,7 @@ export default function NotesLearnMore() {
           </h2>
           <div className="space-y-6">
             <div className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div className="shrink-0 w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold">
                 1
               </div>
               <div>
@@ -51,7 +51,7 @@ export default function NotesLearnMore() {
             </div>
 
             <div className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div className="shrink-0 w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold">
                 2
               </div>
               <div>
@@ -66,7 +66,7 @@ export default function NotesLearnMore() {
             </div>
 
             <div className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div className="shrink-0 w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold">
                 3
               </div>
               <div>
@@ -85,7 +85,7 @@ export default function NotesLearnMore() {
         {/* Features */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow p-6">
-            <Sparkles className="w-8 h-8 text-purple-600 mb-3" />
+            <Sparkles className="w-8 h-8 text-emerald-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Smart Summaries</h3>
             <p className="text-gray-600">
               AI identifies the most important information and creates concise,
@@ -94,7 +94,7 @@ export default function NotesLearnMore() {
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">
-            <FileText className="w-8 h-8 text-purple-600 mb-3" />
+            <FileText className="w-8 h-8 text-emerald-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Structured Format</h3>
             <p className="text-gray-600">
               Notes are organized with clear headings, bullet points, and
@@ -103,7 +103,7 @@ export default function NotesLearnMore() {
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">
-            <Clock className="w-8 h-8 text-purple-600 mb-3" />
+            <Clock className="w-8 h-8 text-emerald-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Save Time</h3>
             <p className="text-gray-600">
               What would take hours of manual note-taking is done in seconds,
@@ -112,7 +112,7 @@ export default function NotesLearnMore() {
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">
-            <BookOpen className="w-8 h-8 text-purple-600 mb-3" />
+            <BookOpen className="w-8 h-8 text-emerald-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Multi-Format</h3>
             <p className="text-gray-600">
               Works with PDFs, Word docs, PowerPoints, web articles, and plain
@@ -125,7 +125,7 @@ export default function NotesLearnMore() {
         <div className="text-center">
           <Link
             href="/upload"
-            className="inline-flex items-center px-8 py-4 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors font-semibold"
+            className="inline-flex items-center px-8 py-4 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors font-semibold"
           >
             <Sparkles className="w-5 h-5 mr-2" />
             Generate Your First Notes

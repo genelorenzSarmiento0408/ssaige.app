@@ -242,16 +242,16 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-linear-to-b from-emerald-50 via-teal-50 to-lime-50">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-linear-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <span className="font-bold text-xl bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="font-bold text-xl bg-linear-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 SSAIGE
               </span>
             </Link>
@@ -262,7 +262,7 @@ export default function UploadPage() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold mb-4 bg-linear-to-r from-emerald-600 via-teal-600 to-lime-500 bg-clip-text text-transparent">
             Upload Study Material
           </h1>
           <p className="text-gray-600 text-lg">
@@ -277,7 +277,7 @@ export default function UploadPage() {
               onClick={() => setSourceType("text")}
               className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
                 sourceType === "text"
-                  ? "bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg"
+                  ? "bg-linear-to-r from-emerald-600 to-teal-600 text-white shadow-lg"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -288,7 +288,7 @@ export default function UploadPage() {
               onClick={() => setSourceType("file")}
               className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
                 sourceType === "file"
-                  ? "bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg"
+                  ? "bg-linear-to-r from-emerald-600 to-teal-600 text-white shadow-lg"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -299,7 +299,7 @@ export default function UploadPage() {
               onClick={() => setSourceType("url")}
               className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all ${
                 sourceType === "url"
-                  ? "bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg"
+                  ? "bg-linear-to-r from-emerald-600 to-teal-600 text-white shadow-lg"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -319,7 +319,7 @@ export default function UploadPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g., Biology Chapter 5: Cell Structure"
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none"
                 required
               />
             </div>
@@ -334,7 +334,7 @@ export default function UploadPage() {
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Paste your study material here..."
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none min-h-[300px]"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none min-h-[300px]"
                   required
                 />
               </div>
@@ -350,13 +350,13 @@ export default function UploadPage() {
                   onDrop={handleDrop}
                   className={`border-2 border-dashed rounded-xl p-8 text-center transition-all ${
                     dragActive
-                      ? "border-purple-500 bg-purple-50"
+                      ? "border-emerald-500 bg-emerald-50"
                       : "border-gray-300 hover:border-gray-400"
                   }`}
                 >
                   {file ? (
                     <div className="space-y-4">
-                      <File className="w-16 h-16 mx-auto text-purple-600" />
+                      <File className="w-16 h-16 mx-auto text-emerald-600" />
                       <div>
                         <p className="font-semibold text-gray-900">
                           {file.name}
@@ -411,7 +411,7 @@ export default function UploadPage() {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="https://example.com/article"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-emerald-500 focus:outline-none"
                   required
                 />
               </div>
@@ -428,7 +428,7 @@ export default function UploadPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-linear-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-linear-to-r from-emerald-600 to-teal-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -445,18 +445,18 @@ export default function UploadPage() {
           </form>
 
           {/* Info Box */}
-          <div className="mt-6 bg-purple-50 border-2 border-purple-200 rounded-xl p-4">
-            <p className="text-sm text-purple-900">
+          <div className="mt-6 bg-emerald-50 border-2 border-emerald-200 rounded-xl p-4">
+            <p className="text-sm text-emerald-900">
               <strong>📚 What happens next:</strong> Our AI will analyze your
               content and automatically generate:
             </p>
-            <ul className="mt-2 space-y-1 text-sm text-purple-800 ml-4">
+            <ul className="mt-2 space-y-1 text-sm text-emerald-800 ml-4">
               <li>• Comprehensive study notes with key points</li>
               <li>• 15 flashcards for memorization</li>
               <li>• 10 quiz questions to test your knowledge</li>
             </ul>
             {sourceType === "file" && (
-              <p className="text-xs text-purple-700 mt-3">
+              <p className="text-xs text-emerald-700 mt-3">
                 ✨ Supported formats: PDF, DOCX, PPTX, TXT
               </p>
             )}

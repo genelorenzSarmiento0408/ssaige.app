@@ -96,7 +96,7 @@ export default function UserProfile() {
     return (
       <Link
         href="/auth/signin"
-        className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+        className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
       >
         Sign In
       </Link>
@@ -109,7 +109,7 @@ export default function UserProfile() {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-100 transition-colors"
       >
-        <div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-full bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
           <span className="text-white font-semibold text-lg">
             {user.email.charAt(0).toUpperCase()}
           </span>

@@ -11,12 +11,12 @@ import {
 
 export default function TutorLearnMore() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-orange-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-linear-to-br from-lime-50 via-white to-yellow-50">
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Back Button */}
         <Link
           href="/"
-          className="inline-flex items-center text-orange-600 hover:text-orange-700 mb-8"
+          className="inline-flex items-center text-lime-600 hover:text-lime-700 mb-8"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -24,8 +24,8 @@ export default function TutorLearnMore() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-orange-100 rounded-full mb-6">
-            <Brain className="w-10 h-10 text-orange-600" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-lime-100 rounded-full mb-6">
+            <Brain className="w-10 h-10 text-lime-600" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             24/7 AI Tutor
@@ -42,7 +42,7 @@ export default function TutorLearnMore() {
           </h2>
           <div className="space-y-6">
             <div className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div className="shrink-0 w-8 h-8 bg-lime-600 text-white rounded-full flex items-center justify-center font-bold">
                 1
               </div>
               <div>
@@ -57,7 +57,7 @@ export default function TutorLearnMore() {
             </div>
 
             <div className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div className="shrink-0 w-8 h-8 bg-lime-600 text-white rounded-full flex items-center justify-center font-bold">
                 2
               </div>
               <div>
@@ -72,7 +72,7 @@ export default function TutorLearnMore() {
             </div>
 
             <div className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div className="shrink-0 w-8 h-8 bg-lime-600 text-white rounded-full flex items-center justify-center font-bold">
                 3
               </div>
               <div>
@@ -91,7 +91,7 @@ export default function TutorLearnMore() {
         {/* Features */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow p-6">
-            <MessageSquare className="w-8 h-8 text-orange-600 mb-3" />
+            <MessageSquare className="w-8 h-8 text-lime-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">
               Natural Conversation
             </h3>
@@ -102,7 +102,7 @@ export default function TutorLearnMore() {
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">
-            <Search className="w-8 h-8 text-orange-600 mb-3" />
+            <Search className="w-8 h-8 text-lime-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Semantic Search</h3>
             <p className="text-gray-600">
               Finds relevant information even when you don't know the exact
@@ -111,7 +111,7 @@ export default function TutorLearnMore() {
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">
-            <Brain className="w-8 h-8 text-orange-600 mb-3" />
+            <Brain className="w-8 h-8 text-lime-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Context-Aware</h3>
             <p className="text-gray-600">
               Remembers your conversation history to provide coherent,
@@ -120,7 +120,7 @@ export default function TutorLearnMore() {
           </div>
 
           <div className="bg-white rounded-xl shadow p-6">
-            <Sparkles className="w-8 h-8 text-orange-600 mb-3" />
+            <Sparkles className="w-8 h-8 text-lime-600 mb-3" />
             <h3 className="font-bold text-gray-900 mb-2">Always Available</h3>
             <p className="text-gray-600">
               Study at 3 AM? No problem. Your AI tutor is available 24/7, ready
@@ -130,23 +130,23 @@ export default function TutorLearnMore() {
         </div>
 
         {/* Example Questions */}
-        <div className="bg-linear-to-r from-orange-50 to-yellow-50 rounded-xl p-6 mb-8">
+        <div className="bg-linear-to-r from-lime-50 to-yellow-50 rounded-xl p-6 mb-8">
           <h3 className="font-bold text-gray-900 mb-4">Example Questions:</h3>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
-              <span className="text-orange-600 mr-2">•</span>
+              <span className="text-lime-600 mr-2">•</span>
               "Can you explain this concept in simpler terms?"
             </li>
             <li className="flex items-start">
-              <span className="text-orange-600 mr-2">•</span>
+              <span className="text-lime-600 mr-2">•</span>
               "What's the difference between X and Y?"
             </li>
             <li className="flex items-start">
-              <span className="text-orange-600 mr-2">•</span>
+              <span className="text-lime-600 mr-2">•</span>
               "Give me an example of how this works in practice"
             </li>
             <li className="flex items-start">
-              <span className="text-orange-600 mr-2">•</span>
+              <span className="text-lime-600 mr-2">•</span>
               "What are the key takeaways from this chapter?"
             </li>
           </ul>
@@ -156,7 +156,7 @@ export default function TutorLearnMore() {
         <div className="text-center">
           <Link
             href="/upload"
-            className="inline-flex items-center px-8 py-4 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition-colors font-semibold"
+            className="inline-flex items-center px-8 py-4 bg-lime-600 text-white rounded-full hover:bg-lime-700 transition-colors font-semibold"
           >
             <Brain className="w-5 h-5 mr-2" />
             Start Chatting with AI Tutor

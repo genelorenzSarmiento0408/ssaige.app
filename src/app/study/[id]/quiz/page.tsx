@@ -63,7 +63,7 @@ export default function QuizPage() {
     if (!answer) return;
 
     const currentQuiz = quizzes[currentIndex];
-    
+
     // Check answer with case-insensitive comparison for identification questions
     // MCQ questions use exact match as options are pre-defined
     const correct =
@@ -71,12 +71,12 @@ export default function QuizPage() {
         ? answer.toLowerCase().trim() ===
           currentQuiz.correct_answer.toLowerCase().trim()
         : answer === currentQuiz.correct_answer;
-    
+
     // Update state with results
     setSelectedAnswer(answer);
     setIsCorrect(correct);
     setShowResult(true);
-    
+
     if (correct) {
       setScore(score + 1);
     }
@@ -119,7 +119,7 @@ export default function QuizPage() {
           <p className="text-xl text-gray-600">No quiz questions available</p>
           <Link
             href="/dashboard"
-            className="text-purple-600 hover:underline mt-4 inline-block"
+            className="text-emerald-600 hover:underline mt-4 inline-block"
           >
             Back to Dashboard
           </Link>
@@ -139,7 +139,7 @@ export default function QuizPage() {
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Quiz Complete!
           </h2>
-          <p className="text-6xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+          <p className="text-6xl font-bold bg-linear-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
             {percentage}%
           </p>
           <p className="text-xl text-gray-600 mb-8">
@@ -149,7 +149,7 @@ export default function QuizPage() {
           <div className="flex gap-4 justify-center">
             <button
               onClick={resetQuiz}
-              className="px-8 py-3 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+              className="px-8 py-3 bg-linear-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
             >
               Try Again
             </button>
@@ -168,7 +168,7 @@ export default function QuizPage() {
   const currentQuiz = quizzes[currentIndex];
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 to-pink-50 p-4">
+    <div className="min-h-screen bg-linear-to-b from-emerald-50 to-teal-50 p-4">
       <div className="container mx-auto max-w-4xl py-8">
         <Link
           href="/dashboard"
@@ -209,7 +209,7 @@ export default function QuizPage() {
                 onChange={(e) => setTextAnswer(e.target.value)}
                 disabled={showResult}
                 placeholder="Type your answer here..."
-                className="w-full p-4 rounded-xl border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none text-lg disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[100px] resize-y"
+                className="w-full p-4 rounded-xl border-2 border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none text-lg disabled:bg-gray-100 disabled:cursor-not-allowed min-h-[100px] resize-y"
                 onKeyDown={(e) => {
                   if (
                     e.key === "Enter" &&
@@ -222,7 +222,7 @@ export default function QuizPage() {
                   }
                 }}
               />
-              
+
               {showResult && selectedAnswer && (
                 <div
                   className={`p-4 rounded-xl text-center font-semibold ${
@@ -270,8 +270,8 @@ export default function QuizPage() {
                         : showWrong
                         ? "bg-red-50 border-red-500 text-red-900"
                         : isSelected
-                        ? "bg-purple-50 border-purple-500 text-purple-900"
-                        : "bg-white border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50"
+                        ? "bg-emerald-50 border-emerald-500 text-emerald-900"
+                        : "bg-white border-gray-200 text-gray-700 hover:border-emerald-300 hover:bg-emerald-50"
                     } ${showResult ? "cursor-not-allowed" : "cursor-pointer"}`}
                   >
                     <div className="flex items-center gap-4">
@@ -282,7 +282,7 @@ export default function QuizPage() {
                             : showWrong
                             ? "bg-red-500 text-white"
                             : isSelected
-                            ? "bg-purple-500 text-white"
+                            ? "bg-emerald-500 text-white"
                             : "bg-gray-200 text-gray-600"
                         }`}
                       >
@@ -292,7 +292,9 @@ export default function QuizPage() {
                       {showCorrect && (
                         <CheckCircle className="w-6 h-6 text-green-500" />
                       )}
-                      {showWrong && <XCircle className="w-6 h-6 text-red-500" />}
+                      {showWrong && (
+                        <XCircle className="w-6 h-6 text-red-500" />
+                      )}
                     </div>
                   </button>
                 );
