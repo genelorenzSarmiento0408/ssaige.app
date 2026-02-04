@@ -12,8 +12,10 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Home() {
+  const { colors } = useTheme();
   const [user, setUser] = useState<{ email: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,9 +35,13 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 to-pink-50">
+      <div
+        className={`min-h-screen flex items-center justify-center bg-linear-to-br from-${colors.primary}-50 to-${colors.secondary}-50`}
+      >
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div
+            className={`w-16 h-16 border-4 border-${colors.primary}-600 border-t-transparent rounded-full animate-spin mx-auto mb-4`}
+          ></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -45,7 +51,9 @@ export default function Home() {
   const firstName = user?.email?.split("@")[0] ?? null;
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div
+      className={`min-h-screen bg-linear-to-b from-${colors.primary}-50 via-${colors.secondary}-50 to-${colors.accent}-50`}
+    >
       {/* Header */}
       {/* <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
@@ -92,7 +100,9 @@ export default function Home() {
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+            <span
+              className={`bg-linear-to-r from-${colors.primary}-600 via-${colors.secondary}-600 to-${colors.accent}-500 bg-clip-text text-transparent`}
+            >
               {user
                 ? `Welcome back, ${firstName || "there"}!`
                 : "Welcome to SSAIGE"}
@@ -107,14 +117,14 @@ export default function Home() {
               <>
                 <Link
                   href="/upload"
-                  className="px-8 py-4 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2"
+                  className={`px-8 py-4 bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2`}
                 >
                   <Upload className="w-5 h-5" />
                   Upload Study Material
                 </Link>
                 <Link
                   href="/dashboard"
-                  className="px-8 py-4 bg-white text-purple-600 border-2 border-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-all flex items-center justify-center gap-2"
+                  className={`px-8 py-4 bg-white text-${colors.primary}-600 border-2 border-${colors.primary}-600 rounded-xl font-semibold hover:bg-${colors.primary}-50 transition-all flex items-center justify-center gap-2`}
                 >
                   View My Materials
                 </Link>
@@ -123,13 +133,13 @@ export default function Home() {
               <>
                 <Link
                   href="/auth/signin"
-                  className="px-8 py-4 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2"
+                  className={`px-8 py-4 bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2`}
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/features"
-                  className="px-8 py-4 bg-white text-purple-600 border-2 border-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-all flex items-center justify-center gap-2"
+                  className={`px-8 py-4 bg-white text-${colors.primary}-600 border-2 border-${colors.primary}-600 rounded-xl font-semibold hover:bg-${colors.primary}-50 transition-all flex items-center justify-center gap-2`}
                 >
                   Learn More
                 </Link>
@@ -147,9 +157,13 @@ export default function Home() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Feature 1: AI Notes */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-purple-100 hover:border-purple-300">
-            <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <BookOpen className="w-8 h-8 text-purple-600" />
+          <div
+            className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-${colors.primary}-100 hover:border-${colors.primary}-300`}
+          >
+            <div
+              className={`w-14 h-14 bg-${colors.primary}-100 rounded-xl flex items-center justify-center mb-4`}
+            >
+              <BookOpen className={`w-8 h-8 text-${colors.primary}-600`} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
               AI-Generated Notes
@@ -160,16 +174,20 @@ export default function Home() {
             </p>
             <Link
               href="/features/notes"
-              className="text-purple-600 font-semibold hover:underline"
+              className={`text-${colors.primary}-600 font-semibold hover:underline`}
             >
               Learn more →
             </Link>
           </div>
 
           {/* Feature 2: Flashcards */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-pink-100 hover:border-pink-300">
-            <div className="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
-              <Zap className="w-8 h-8 text-pink-600" />
+          <div
+            className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-${colors.secondary}-100 hover:border-${colors.secondary}-300`}
+          >
+            <div
+              className={`w-14 h-14 bg-${colors.secondary}-100 rounded-xl flex items-center justify-center mb-4`}
+            >
+              <Zap className={`w-8 h-8 text-${colors.secondary}-600`} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
               Smart Flashcards
@@ -180,16 +198,20 @@ export default function Home() {
             </p>
             <Link
               href="/features/flashcards"
-              className="text-pink-600 font-semibold hover:underline"
+              className={`text-${colors.secondary}-600 font-semibold hover:underline`}
             >
               Learn more →
             </Link>
           </div>
 
           {/* Feature 3: AI Tutor */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-orange-100 hover:border-orange-300">
-            <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-              <Brain className="w-8 h-8 text-orange-600" />
+          <div
+            className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-${colors.accent}-100 hover:border-${colors.accent}-300`}
+          >
+            <div
+              className={`w-14 h-14 bg-${colors.accent}-100 rounded-xl flex items-center justify-center mb-4`}
+            >
+              <Brain className={`w-8 h-8 text-${colors.accent}-600`} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
               24/7 AI Tutor
@@ -200,7 +222,7 @@ export default function Home() {
             </p>
             <Link
               href="/features/tutor"
-              className="text-orange-600 font-semibold hover:underline"
+              className={`text-${colors.accent}-600 font-semibold hover:underline`}
             >
               Learn more →
             </Link>
@@ -268,7 +290,9 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 rounded-3xl p-12 text-center text-white shadow-2xl">
+        <div
+          className={`max-w-4xl mx-auto bg-linear-to-r from-${colors.primary}-600 via-${colors.secondary}-600 to-${colors.accent}-500 rounded-3xl p-12 text-center text-white shadow-2xl`}
+        >
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Ready to Study Smarter?
           </h2>
@@ -278,7 +302,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/upload"
-              className="px-8 py-4 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105"
+              className={`px-8 py-4 bg-white text-${colors.primary}-600 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105`}
             >
               Get Started Now
             </Link>
@@ -297,7 +321,9 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-linear-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+              <div
+                className={`w-8 h-8 bg-linear-to-br from-${colors.primary}-600 to-${colors.secondary}-600 rounded-lg flex items-center justify-center`}
+              >
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <span className="font-bold text-gray-900">SSAIGE</span>
@@ -308,19 +334,19 @@ export default function Home() {
             <div className="flex gap-6">
               <Link
                 href="/privacy"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className={`text-sm text-gray-600 hover:text-${colors.primary}-600`}
               >
                 Privacy
               </Link>
               <Link
                 href="/terms"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className={`text-sm text-gray-600 hover:text-${colors.primary}-600`}
               >
                 Terms
               </Link>
               <Link
                 href="/contact"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className={`text-sm text-gray-600 hover:text-${colors.primary}-600`}
               >
                 Contact
               </Link>
@@ -331,4 +357,3 @@ export default function Home() {
     </div>
   );
 }
-

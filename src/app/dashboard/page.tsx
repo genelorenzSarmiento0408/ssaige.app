@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import UserProfile from "@/components/user-profile";
 import { createClient } from "@/lib/supabase/client";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface StudyMaterial {
   id: string;
@@ -27,6 +28,7 @@ interface StudyMaterial {
 }
 
 export default function DashboardPage() {
+  const { colors } = useTheme();
   const router = useRouter();
   const [materials, setMaterials] = useState<StudyMaterial[]>([]);
   const [loading, setLoading] = useState(false);
@@ -193,9 +195,13 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 to-pink-50">
+      <div
+        className={`min-h-screen flex items-center justify-center bg-linear-to-br from-${colors.primary}-50 to-${colors.secondary}-50`}
+      >
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div
+            className={`w-16 h-16 border-4 border-${colors.primary}-600 border-t-transparent rounded-full animate-spin mx-auto mb-4`}
+          ></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -203,7 +209,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div
+      className={`min-h-screen bg-linear-to-b from-${colors.primary}-50 via-${colors.secondary}-50 to-${colors.accent}-50`}
+    >
       {/* Header */}
       {/* <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
@@ -238,7 +246,9 @@ export default function DashboardPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1
+              className={`text-3xl sm:text-4xl font-bold mb-2 bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 bg-clip-text text-transparent`}
+            >
               My Study Materials
             </h1>
             <p className="text-gray-600">
@@ -247,7 +257,7 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/upload"
-            className="px-6 py-3 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2 w-full sm:w-auto justify-center"
+            className={`px-6 py-3 bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2 w-full sm:w-auto justify-center`}
           >
             <Upload className="w-5 h-5" />
             Upload New Material
@@ -257,8 +267,10 @@ export default function DashboardPage() {
         {/* Materials Grid */}
         {materials.length === 0 ? (
           <div className="text-center py-20">
-            <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <FileText className="w-12 h-12 text-purple-600" />
+            <div
+              className={`w-24 h-24 bg-${colors.primary}-100 rounded-full flex items-center justify-center mx-auto mb-6`}
+            >
+              <FileText className={`w-12 h-12 text-${colors.primary}-600`} />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
               No materials yet
@@ -269,7 +281,7 @@ export default function DashboardPage() {
             </p>
             <Link
               href="/upload"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+              className={`inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all`}
             >
               <Upload className="w-5 h-5" />
               Upload Material
@@ -280,7 +292,7 @@ export default function DashboardPage() {
             {materials.map((material) => (
               <div
                 key={material.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-6 border-2 border-purple-100"
+                className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-6 border-2 border-${colors.primary}-100`}
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
@@ -314,21 +326,39 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 mb-4">
-                  <div className="text-center p-3 bg-purple-50 rounded-lg">
-                    <BookOpen className="w-5 h-5 text-purple-600 mx-auto mb-1" />
-                    <p className="text-xs font-semibold text-purple-900">
+                  <div
+                    className={`text-center p-3 bg-${colors.primary}-50 rounded-lg`}
+                  >
+                    <BookOpen
+                      className={`w-5 h-5 text-${colors.primary}-600 mx-auto mb-1`}
+                    />
+                    <p
+                      className={`text-xs font-semibold text-${colors.primary}-900`}
+                    >
                       Notes
                     </p>
                   </div>
-                  <div className="text-center p-3 bg-pink-50 rounded-lg">
-                    <Brain className="w-5 h-5 text-pink-600 mx-auto mb-1" />
-                    <p className="text-xs font-semibold text-pink-900">
+                  <div
+                    className={`text-center p-3 bg-${colors.secondary}-50 rounded-lg`}
+                  >
+                    <Brain
+                      className={`w-5 h-5 text-${colors.secondary}-600 mx-auto mb-1`}
+                    />
+                    <p
+                      className={`text-xs font-semibold text-${colors.secondary}-900`}
+                    >
                       Ask AI
                     </p>
                   </div>
-                  <div className="text-center p-3 bg-orange-50 rounded-lg">
-                    <Trophy className="w-5 h-5 text-orange-600 mx-auto mb-1" />
-                    <p className="text-xs font-semibold text-orange-900">
+                  <div
+                    className={`text-center p-3 bg-${colors.accent}-50 rounded-lg`}
+                  >
+                    <Trophy
+                      className={`w-5 h-5 text-${colors.accent}-600 mx-auto mb-1`}
+                    />
+                    <p
+                      className={`text-xs font-semibold text-${colors.accent}-900`}
+                    >
                       {material.quizzes_count || 0}
                     </p>
                   </div>
@@ -343,19 +373,19 @@ export default function DashboardPage() {
                   </Link>
                   <Link
                     href={`/study/${material.id}/flashcards`}
-                    className="block w-full py-2 px-4 bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold rounded-lg transition-colors text-center"
+                    className={`block w-full py-2 px-4 bg-${colors.primary}-100 hover:bg-${colors.primary}-200 text-${colors.primary}-700 font-semibold rounded-lg transition-colors text-center`}
                   >
                     Study Flashcards
                   </Link>
                   <Link
                     href={`/study/${material.id}/quiz`}
-                    className="block w-full py-2 px-4 bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold rounded-lg transition-colors text-center"
+                    className={`block w-full py-2 px-4 bg-${colors.secondary}-100 hover:bg-${colors.secondary}-200 text-${colors.secondary}-700 font-semibold rounded-lg transition-colors text-center`}
                   >
                     Take Quiz
                   </Link>
                   <Link
                     href={`/study/${material.id}/tutor`}
-                    className="block w-full py-2 px-4 bg-orange-100 hover:bg-orange-200 text-orange-700 font-semibold rounded-lg transition-colors text-center"
+                    className={`block w-full py-2 px-4 bg-${colors.accent}-100 hover:bg-${colors.accent}-200 text-${colors.accent}-700 font-semibold rounded-lg transition-colors text-center`}
                   >
                     Chat with Tutor
                   </Link>
@@ -368,4 +398,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
