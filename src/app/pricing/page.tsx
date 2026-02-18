@@ -1,9 +1,14 @@
+"use client";
+
 import { Check, Sparkles, Zap, Crown } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function PricingPage() {
+  const { colors } = useTheme();
+  
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 via-pink-50 to-orange-50">
+    <div className={`min-h-screen bg-linear-to-b from-${colors.primary}-50 via-${colors.secondary}-50 to-${colors.accent}-50`}>
       {/* Header */}
       {/* <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -20,7 +25,7 @@ export default function PricingPage() {
 
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+        <h1 className={`text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-${colors.primary}-600 via-${colors.secondary}-600 to-${colors.accent}-500 bg-clip-text text-transparent`}>
           Pricing
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
@@ -94,9 +99,9 @@ export default function PricingPage() {
           </div>
 
           {/* Pro Tier (Currently Free) */}
-          <div className="bg-linear-to-br from-purple-600 to-pink-600 rounded-3xl shadow-xl p-8 border-4 border-purple-400 transform scale-105 relative">
+          <div className={`bg-linear-to-br from-${colors.primary}-600 to-${colors.secondary}-600 rounded-3xl shadow-xl p-8 border-4 border-${colors.primary}-400 transform scale-105 relative`}>
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span className="bg-yellow-400 text-purple-900 px-4 py-1 rounded-full text-sm font-bold">
+              <span className={`bg-yellow-400 text-${colors.primary}-900 px-4 py-1 rounded-full text-sm font-bold`}>
                 FREE NOW! 🎉
               </span>
             </div>

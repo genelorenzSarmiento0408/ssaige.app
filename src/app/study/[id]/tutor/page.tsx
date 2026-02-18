@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ArrowLeft, Send, Loader2, Brain } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface Message {
   role: "user" | "assistant";
@@ -13,6 +14,7 @@ interface Message {
 }
 
 export default function TutorPage() {
+  const { colors } = useTheme();
   const params = useParams();
   const materialId = params.id as string;
   const [messages, setMessages] = useState<Message[]>([]);

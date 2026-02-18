@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { BookOpen, ArrowLeft, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface Notes {
   id: string;
@@ -20,6 +21,7 @@ interface Material {
 }
 
 export default function NotesPage() {
+  const { colors } = useTheme();
   const params = useParams();
   const router = useRouter();
   const materialId = params.id as string;

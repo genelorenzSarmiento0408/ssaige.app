@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ArrowLeft, RotateCw, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface Flashcard {
   id: string;
@@ -13,6 +14,7 @@ interface Flashcard {
 }
 
 export default function FlashcardsPage() {
+  const { colors } = useTheme();
   const params = useParams();
   const materialId = params.id as string;
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
@@ -72,7 +74,7 @@ export default function FlashcardsPage() {
           <p className="text-xl text-gray-600">No flashcards available</p>
           <Link
             href="/dashboard"
-            className="text-purple-600 hover:underline mt-4 inline-block"
+            className={`text-${colors.primary}-600 hover:underline mt-4 inline-block`}
           >
             Back to Dashboard
           </Link>
@@ -84,11 +86,11 @@ export default function FlashcardsPage() {
   const currentCard = flashcards[currentIndex];
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-purple-50 to-pink-50 p-4">
+    <div className={`min-h-screen bg-linear-to-b from-${colors.primary}-50 to-${colors.secondary}-50 p-4`}>
       <div className="container mx-auto max-w-4xl py-8">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 mb-6"
+          className={`inline-flex items-center gap-2 text-${colors.primary}-600 hover:text-${colors.primary}-700 mb-6`}
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Dashboard
@@ -114,7 +116,7 @@ export default function FlashcardsPage() {
             >
               {/* Front */}
               <div className="absolute inset-0 bg-white rounded-3xl shadow-2xl p-8 backface-hidden flex flex-col items-center justify-center">
-                <p className="text-sm font-semibold text-purple-600 mb-4">
+                <p className={`text-sm font-semibold text-${colors.primary}-600 mb-4`}>
                   QUESTION
                 </p>
                 <p className="text-2xl text-center text-gray-900">
@@ -126,14 +128,14 @@ export default function FlashcardsPage() {
               </div>
 
               {/* Back */}
-              <div className="absolute inset-0 bg-linear-to-br from-purple-600 to-pink-600 rounded-3xl shadow-2xl p-8 backface-hidden rotate-y-180 flex flex-col items-center justify-center">
-                <p className="text-sm font-semibold text-purple-200 mb-4">
+              <div className={`absolute inset-0 bg-linear-to-br from-${colors.primary}-600 to-${colors.secondary}-600 rounded-3xl shadow-2xl p-8 backface-hidden rotate-y-180 flex flex-col items-center justify-center`}>
+                <p className={`text-sm font-semibold text-${colors.primary}-200 mb-4`}>
                   ANSWER
                 </p>
                 <p className="text-2xl text-center text-white">
                   {currentCard.answer}
                 </p>
-                <p className="text-sm text-purple-200 mt-8">
+                <p className={`text-sm text-${colors.primary}-200 mt-8`}>
                   Click to see question
                 </p>
               </div>
@@ -153,7 +155,7 @@ export default function FlashcardsPage() {
 
           <button
             onClick={() => setIsFlipped(!isFlipped)}
-            className="px-6 py-3 bg-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2"
+            className={`px-6 py-3 bg-${colors.primary}-600 text-white rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2`}
           >
             <RotateCw className="w-5 h-5" />
             Flip Card
@@ -172,7 +174,7 @@ export default function FlashcardsPage() {
         <div className="mt-8">
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-linear-to-r from-purple-600 to-pink-600 h-2 rounded-full transition-all"
+              className={`bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 h-2 rounded-full transition-all`}
               style={{
                 width: `${((currentIndex + 1) / flashcards.length) * 100}%`,
               }}

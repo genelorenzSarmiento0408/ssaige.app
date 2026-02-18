@@ -229,9 +229,9 @@ export default function Home() {
           </div>
 
           {/* Feature 4: Quizzes */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-100 hover:border-green-300">
-            <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <Trophy className="w-8 h-8 text-green-600" />
+          <div className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-${colors.primary}-100 hover:border-${colors.primary}-300`}>
+            <div className={`w-14 h-14 bg-${colors.primary}-100 rounded-xl flex items-center justify-center mb-4`}>
+              <Trophy className={`w-8 h-8 text-${colors.primary}-600`} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">AI Quizzes</h3>
             <p className="text-gray-600 mb-4">
@@ -240,16 +240,16 @@ export default function Home() {
             </p>
             <Link
               href="/features/quizzes"
-              className="text-green-600 font-semibold hover:underline"
+              className={`text-${colors.primary}-600 font-semibold hover:underline`}
             >
               Learn more →
             </Link>
           </div>
 
           {/* Feature 5: Multiplayer */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-100 hover:border-blue-300">
-            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <Users className="w-8 h-8 text-blue-600" />
+          <div className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-${colors.secondary}-100 hover:border-${colors.secondary}-300`}>
+            <div className={`w-14 h-14 bg-${colors.secondary}-100 rounded-xl flex items-center justify-center mb-4`}>
+              <Users className={`w-8 h-8 text-${colors.secondary}-600`} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
               Multiplayer Quizzes
@@ -260,16 +260,16 @@ export default function Home() {
             </p>
             <Link
               href="/features/multiplayer"
-              className="text-blue-600 font-semibold hover:underline"
+              className={`text-${colors.secondary}-600 font-semibold hover:underline`}
             >
               Learn more →
             </Link>
           </div>
 
           {/* Feature 6: Import */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-100 hover:border-indigo-300">
-            <div className="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-              <Upload className="w-8 h-8 text-indigo-600" />
+          <div className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-${colors.accent}-100 hover:border-${colors.accent}-300`}>
+            <div className={`w-14 h-14 bg-${colors.accent}-100 rounded-xl flex items-center justify-center mb-4`}>
+              <Upload className={`w-8 h-8 text-${colors.accent}-600`} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
               Multi-Source Import
@@ -280,7 +280,7 @@ export default function Home() {
             </p>
             <Link
               href="/features/import"
-              className="text-indigo-600 font-semibold hover:underline"
+              className={`text-${colors.accent}-600 font-semibold hover:underline`}
             >
               Learn more →
             </Link>
@@ -308,7 +308,7 @@ export default function Home() {
             </Link>
             <Link
               href="/pricing"
-              className="px-8 py-4 bg-purple-900/30 backdrop-blur text-white border-2 border-white rounded-xl font-semibold hover:bg-purple-900/50 transition-all"
+              className={`px-8 py-4 bg-${colors.primary}-900/30 backdrop-blur text-white border-2 border-white rounded-xl font-semibold hover:bg-${colors.primary}-900/50 transition-all`}
             >
               Learn About Pricing
             </Link>

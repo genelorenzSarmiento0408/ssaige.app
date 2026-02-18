@@ -93,7 +93,7 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-linear-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-${colors.primary}-600" />
       </div>
     );
   }
@@ -119,7 +119,7 @@ export default function SettingsPage() {
           {/* Profile Section */}
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-              <User className="w-6 h-6 text-purple-600" />
+              <User className="w-6 h-6 text-${colors.primary}-600" />
               Profile Information
             </h2>
 
@@ -185,7 +185,7 @@ export default function SettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-purple-400 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-2 px-6 py-3 bg-${colors.primary}-600 text-white rounded-lg hover:bg-${colors.primary}-700 disabled:bg-purple-400 disabled:cursor-not-allowed transition-colors"
             >
               {saving ? (
                 <>
@@ -237,4 +237,5 @@ export default function SettingsPage() {
     </div>
   );
 }
+
 

@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface Quiz {
   id: string;
@@ -15,6 +16,7 @@ interface Quiz {
 }
 
 export default function QuizPage() {
+  const { colors } = useTheme();
   const params = useParams();
   const materialId = params.id as string;
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);

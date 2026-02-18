@@ -19,7 +19,7 @@ export default function ContactPage() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-${colors.primary}-600 via-${colors.secondary}-600 to-${colors.accent}-500 bg-clip-text text-transparent">
             Contact Us
           </h1>
           <p className="text-gray-600 text-lg">Get in touch with our team</p>
@@ -29,7 +29,7 @@ export default function ContactPage() {
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
-              <Mail className="w-6 h-6 text-purple-600" />
+              <Mail className="w-6 h-6 text-${colors.primary}-600" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -43,7 +43,7 @@ export default function ContactPage() {
             </p>
             <a
               href="mailto:support@ssaige.app"
-              className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold text-lg"
+              className="inline-flex items-center gap-2 text-${colors.primary}-600 hover:text-${colors.primary}-700 font-semibold text-lg"
             >
               <Mail className="w-5 h-5" />
               support@ssaige.app
@@ -55,7 +55,7 @@ export default function ContactPage() {
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-pink-100 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-orange-600" />
+              <Users className="w-6 h-6 text-${colors.accent}-600" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -88,7 +88,7 @@ export default function ContactPage() {
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-pink-600" />
+              <Users className="w-6 h-6 text-${colors.secondary}-600" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -141,13 +141,13 @@ export default function ContactPage() {
             <div className="flex gap-6">
               <Link
                 href="/privacy"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className="text-sm text-gray-600 hover:text-${colors.primary}-600"
               >
                 Privacy
               </Link>
               <Link
                 href="/terms"
-                className="text-sm text-gray-600 hover:text-purple-600"
+                className="text-sm text-gray-600 hover:text-${colors.primary}-600"
               >
                 Terms of Service
               </Link>
@@ -158,4 +158,5 @@ export default function ContactPage() {
     </div>
   );
 }
+
 

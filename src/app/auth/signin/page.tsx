@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Sparkles, BookOpen, Brain, Trophy } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function SignIn() {
+  const { classes } = useTheme();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -72,16 +74,22 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-600 via-pink-500 to-orange-500 p-4">
+    <div
+      className={`min-h-screen flex items-center justify-center ${classes.gradientFull} p-4`}
+    >
       <div className="w-full max-w-md">
         {/* Main Card */}
         <div className="bg-white rounded-3xl shadow-2xl p-8 transform transition-all hover:scale-[1.02]">
           {/* Logo & Title */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-purple-600 to-pink-600 rounded-2xl mb-4 transform rotate-12 hover:rotate-0 transition-transform">
+            <div
+              className={`inline-flex items-center justify-center w-16 h-16 ${classes.gradientPrimary} rounded-2xl mb-4 transform rotate-12 hover:rotate-0 transition-transform`}
+            >
               <Sparkles className="w-8 h-8 text-white -rotate-12 hover:rotate-0 transition-transform" />
             </div>
-            <h1 className="text-4xl font-bold bg-linear-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent mb-2">
+            <h1
+              className={`text-4xl font-bold ${classes.gradientFull} bg-clip-text text-transparent mb-2`}
+            >
               SSAIGE
             </h1>
             <p className="text-gray-600 font-medium">
@@ -91,17 +99,35 @@ export default function SignIn() {
 
           {/* Features Preview */}
           <div className="grid grid-cols-3 gap-3 mb-8">
-            <div className="text-center p-3 bg-purple-50 rounded-xl">
-              <BookOpen className="w-6 h-6 text-purple-600 mx-auto mb-1" />
-              <p className="text-xs font-semibold text-purple-900">AI Notes</p>
+            <div
+              className={`text-center p-3 ${classes.bgPrimary50} rounded-xl`}
+            >
+              <BookOpen
+                className={`w-6 h-6 ${classes.textPrimary600} mx-auto mb-1`}
+              />
+              <p className={`text-xs font-semibold ${classes.textPrimary900}`}>
+                AI Notes
+              </p>
             </div>
-            <div className="text-center p-3 bg-pink-50 rounded-xl">
-              <Brain className="w-6 h-6 text-pink-600 mx-auto mb-1" />
-              <p className="text-xs font-semibold text-pink-900">AI Tutor</p>
+            <div
+              className={`text-center p-3 ${classes.bgSecondary50} rounded-xl`}
+            >
+              <Brain
+                className={`w-6 h-6 ${classes.textSecondary600} mx-auto mb-1`}
+              />
+              <p
+                className={`text-xs font-semibold ${classes.textSecondary900}`}
+              >
+                AI Tutor
+              </p>
             </div>
-            <div className="text-center p-3 bg-orange-50 rounded-xl">
-              <Trophy className="w-6 h-6 text-orange-600 mx-auto mb-1" />
-              <p className="text-xs font-semibold text-orange-900">Quizzes</p>
+            <div className={`text-center p-3 ${classes.bgAccent50} rounded-xl`}>
+              <Trophy
+                className={`w-6 h-6 ${classes.textAccent600} mx-auto mb-1`}
+              />
+              <p className={`text-xs font-semibold ${classes.textPrimary900}`}>
+                Quizzes
+              </p>
             </div>
           </div>
 
@@ -127,7 +153,12 @@ export default function SignIn() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
+                className={`w-full px-4 py-3 border-2 border-gray-300 rounded-xl ${classes.borderPrimary500} outline-none transition-all`}
+                style={
+                  {
+                    "--tw-ring-color": "var(--tw-ring-opacity, 0.2)",
+                  } as React.CSSProperties
+                }
               />
             </div>
             <div>
@@ -137,13 +168,13 @@ export default function SignIn() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
+                className={`w-full px-4 py-3 border-2 border-gray-300 rounded-xl ${classes.borderPrimary500} outline-none transition-all`}
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-linear-to-r from-purple-600 to-pink-600 text-white font-semibold py-3.5 px-6 rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-50"
+              className={`w-full ${classes.gradientPrimary} text-white font-semibold py-3.5 px-6 rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-50`}
             >
               {loading ? "Loading..." : isSignUp ? "Sign Up" : "Sign In"}
             </button>
@@ -152,7 +183,7 @@ export default function SignIn() {
           {/* Toggle Sign Up/Sign In */}
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="w-full text-sm text-gray-600 hover:text-purple-600 transition-colors mb-4"
+            className={`w-full text-sm text-gray-600 ${classes.hoverTextPrimary600} transition-colors mb-4`}
           >
             {isSignUp
               ? "Already have an account? Sign in"
@@ -176,7 +207,7 @@ export default function SignIn() {
             <button
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 hover:border-purple-400 hover:bg-purple-50 text-gray-700 font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 hover:shadow-lg group disabled:opacity-50"
+              className={`w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 ${classes.borderPrimary400} ${classes.hoverBgPrimary50} text-gray-700 font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 hover:shadow-lg group disabled:opacity-50`}
             >
               <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                 <path
@@ -196,7 +227,9 @@ export default function SignIn() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              <span className="group-hover:text-purple-700 transition-colors">
+              <span
+                className={`${classes.hoverTextPrimary700} transition-colors`}
+              >
                 Continue with Google
               </span>
             </button>
@@ -259,4 +292,3 @@ export default function SignIn() {
     </div>
   );
 }
-

@@ -8,11 +8,10 @@ import {
   Brain,
   Trophy,
   Upload,
-  Sparkles,
   FileText,
   Trash2,
+  Globe,
 } from "lucide-react";
-import UserProfile from "@/components/user-profile";
 import { createClient } from "@/lib/supabase/client";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -25,12 +24,14 @@ interface StudyMaterial {
   is_public: boolean;
   flashcards_count?: number;
   quizzes_count?: number;
+  owner_name?: string;
 }
 
 export default function DashboardPage() {
   const { colors } = useTheme();
   const router = useRouter();
   const [materials, setMaterials] = useState<StudyMaterial[]>([]);
+  const [publicMaterials, setPublicMaterials] = useState<StudyMaterial[]>([]);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<{ id: string; email: string } | null>(null);
 
@@ -69,6 +70,7 @@ export default function DashboardPage() {
     const loadMaterials = async () => {
       const supabase = createClient();
 
+      // Load user's own materials
       const { data, error } = await supabase
         .from("study_materials")
         .select(
@@ -109,6 +111,60 @@ export default function DashboardPage() {
 
         if (mounted) {
           setMaterials(materialsWithCounts);
+        }
+      }
+
+      // Load public materials from other users
+      const { data: publicData, error: publicError } = await supabase
+        .from("study_materials")
+        .select(
+          `
+        id,
+        title,
+        source_type,
+        created_at,
+        user_id,
+        is_public,
+        profiles!study_materials_user_id_fkey(name)
+      `
+        )
+        .eq("is_public", true)
+        .neq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(20);
+
+      if (!publicError && publicData && mounted) {
+        // Get counts for each public material
+        const publicMaterialsWithCounts = await Promise.all(
+          publicData.map(async (material: Record<string, unknown>) => {
+            const [flashcardsRes, quizzesRes] = await Promise.all([
+              supabase
+                .from("flashcards")
+                .select("id", { count: "exact", head: true })
+                .eq("material_id", material.id as string),
+              supabase
+                .from("quizzes")
+                .select("id", { count: "exact", head: true })
+                .eq("material_id", material.id as string),
+            ]);
+
+            const profiles = material.profiles as { name?: string } | null;
+            return {
+              id: material.id as string,
+              title: material.title as string,
+              source_type: material.source_type as string,
+              created_at: material.created_at as string,
+              user_id: material.user_id as string,
+              is_public: material.is_public as boolean,
+              flashcards_count: flashcardsRes.count || 0,
+              quizzes_count: quizzesRes.count || 0,
+              owner_name: profiles?.name || "Anonymous",
+            };
+          })
+        );
+
+        if (mounted) {
+          setPublicMaterials(publicMaterialsWithCounts);
         }
       }
 
@@ -392,6 +448,97 @@ export default function DashboardPage() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Public Materials Section */}
+        {publicMaterials.length > 0 && (
+          <div className="mt-12">
+            <div className="flex items-center gap-3 mb-6">
+              <Globe className={`w-6 h-6 text-${colors.primary}-600`} />
+              <h2
+                className={`text-2xl font-bold bg-linear-to-r from-${colors.primary}-600 to-${colors.secondary}-600 bg-clip-text text-transparent`}
+              >
+                Public Study Materials
+              </h2>
+            </div>
+            <p className="text-gray-600 mb-6">
+              Explore study materials shared by other users
+            </p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {publicMaterials.map((material) => (
+                <div
+                  key={material.id}
+                  className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-6 border-2 border-${colors.secondary}-100`}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg text-gray-900 mb-1 line-clamp-2">
+                        {material.title}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        by {material.owner_name}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(material.created_at).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <span className="text-xs px-3 py-1 rounded-full font-semibold bg-green-100 text-green-700">
+                      🌐 Public
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <div
+                      className={`text-center p-3 bg-${colors.primary}-50 rounded-lg`}
+                    >
+                      <BookOpen
+                        className={`w-5 h-5 text-${colors.primary}-600 mx-auto mb-1`}
+                      />
+                      <p
+                        className={`text-xs font-semibold text-${colors.primary}-900`}
+                      >
+                        {material.flashcards_count || 0} Cards
+                      </p>
+                    </div>
+                    <div
+                      className={`text-center p-3 bg-${colors.secondary}-50 rounded-lg`}
+                    >
+                      <Trophy
+                        className={`w-5 h-5 text-${colors.secondary}-600 mx-auto mb-1`}
+                      />
+                      <p
+                        className={`text-xs font-semibold text-${colors.secondary}-900`}
+                      >
+                        {material.quizzes_count || 0} Quizzes
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Link
+                      href={`/study/${material.id}/notes`}
+                      className="block w-full py-2 px-4 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold rounded-lg transition-colors text-center"
+                    >
+                      View Notes
+                    </Link>
+                    <Link
+                      href={`/study/${material.id}/flashcards`}
+                      className={`block w-full py-2 px-4 bg-${colors.primary}-100 hover:bg-${colors.primary}-200 text-${colors.primary}-700 font-semibold rounded-lg transition-colors text-center`}
+                    >
+                      Study Flashcards
+                    </Link>
+                    <Link
+                      href={`/study/${material.id}/quiz`}
+                      className={`block w-full py-2 px-4 bg-${colors.secondary}-100 hover:bg-${colors.secondary}-200 text-${colors.secondary}-700 font-semibold rounded-lg transition-colors text-center`}
+                    >
+                      Take Quiz
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
