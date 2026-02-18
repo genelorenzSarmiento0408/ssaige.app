@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export type ThemeColors = {
   primary: string;
@@ -34,7 +34,9 @@ export type ThemeClasses = {
   textPrimary900: string;
   textSecondary600: string;
   textSecondary700: string;
+  textSecondary900: string;
   textAccent600: string;
+  textAccent900: string;
   
   // Border colors
   borderPrimary100: string;
@@ -119,7 +121,9 @@ function generateThemeClasses(colors: ThemeColors): ThemeClasses {
     textPrimary900: `text-${colors.primary}-900`,
     textSecondary600: `text-${colors.secondary}-600`,
     textSecondary700: `text-${colors.secondary}-700`,
+    textSecondary900: `text-${colors.secondary}-900`,
     textAccent600: `text-${colors.accent}-600`,
+    textAccent900: `text-${colors.accent}-900`,
     
     // Border colors
     borderPrimary100: `border-${colors.primary}-100`,
@@ -155,15 +159,16 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeName>("purple");
-
-  useEffect(() => {
-    // Load theme from localStorage on mount
-    const savedTheme = localStorage.getItem("ssaige-theme") as ThemeName;
-    if (savedTheme && themes[savedTheme]) {
-      setThemeState(savedTheme);
+  const [theme, setThemeState] = useState<ThemeName>(() => {
+    // Initialize from localStorage on first render
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem("ssaige-theme") as ThemeName;
+      if (savedTheme && themes[savedTheme]) {
+        return savedTheme;
+      }
     }
-  }, []);
+    return "purple";
+  });
 
   const setTheme = (newTheme: ThemeName) => {
     setThemeState(newTheme);

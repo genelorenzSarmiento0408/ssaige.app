@@ -125,7 +125,7 @@ export default function SignIn() {
               <Trophy
                 className={`w-6 h-6 ${classes.textAccent600} mx-auto mb-1`}
               />
-              <p className={`text-xs font-semibold ${classes.textPrimary900}`}>
+              <p className={`text-xs font-semibold ${classes.textAccent900}`}>
                 Quizzes
               </p>
             </div>
